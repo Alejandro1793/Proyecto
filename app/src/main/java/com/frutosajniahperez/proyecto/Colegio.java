@@ -5,16 +5,19 @@ import java.util.ArrayList;
 public class Colegio {
 
     private String idColegio;
+    private String codigoSecreto;
     private ArrayList<Alumno> alumnado;
     private ArrayList<Profesor> profesorado;
     private ArrayList<Aula> aulas;
     private ArrayList<Libro> biblioteca;
 
     public Colegio() {
+        codigoSecreto = GeneradorContraseña.getPassword();
     }
 
     public Colegio(String idColegio, ArrayList<Alumno> alumnado, ArrayList<Profesor> profesorado, ArrayList<Aula> aulas, ArrayList<Libro> biblioteca) {
         this.idColegio = idColegio;
+        codigoSecreto = GeneradorContraseña.getPassword();
         this.alumnado = alumnado;
         this.profesorado = profesorado;
         this.aulas = aulas;
@@ -59,5 +62,13 @@ public class Colegio {
 
     public void setBiblioteca(ArrayList<Libro> biblioteca) {
         this.biblioteca = biblioteca;
+    }
+
+    public String getCodigoSecreto() {
+        return codigoSecreto;
+    }
+
+    public void setCodigoSecreto(String codigoSecreto) {
+        this.codigoSecreto = codigoSecreto;
     }
 }

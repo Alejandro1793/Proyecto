@@ -25,6 +25,8 @@ public class RegistroColegio extends AppCompatActivity {
 
     Button btnGenerarCodigo, btnAceptarCodigo;
     TextView txtCodigoGenerado, txtIdCole;
+    Colegio cole;
+    Map<String, Object> listado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +38,15 @@ public class RegistroColegio extends AppCompatActivity {
         txtIdCole = findViewById(R.id.txtIdCole);
         btnAceptarCodigo = findViewById(R.id.btnAceptarCodigo);
 
+        listado = new HashMap<>();
+        cole = new Colegio();
+
 
         btnGenerarCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (comprobarCodigo(txtIdCole.getText().toString())){
-                    txtCodigoGenerado.setText(GeneradorContraseña.getPassword());
+                    txtCodigoGenerado.setText(cole.getCodigoSecreto());
                 } else {
                     Toast.makeText(RegistroColegio.this, "El ID tiene que tener 8 números", Toast.LENGTH_LONG).show();
                     txtIdCole.setText("");
@@ -52,8 +57,6 @@ public class RegistroColegio extends AppCompatActivity {
         btnAceptarCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> listado = new HashMap<>();
-                Colegio cole = new Colegio();
                 cole.setIdColegio(txtIdCole.getText().toString());
                 listado.put(txtIdCole.getText().toString(), cole);
                 // Write a message to the database

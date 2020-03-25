@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         btnRegistrarse = findViewById(R.id.btnRegistrarse);
 
         mAuth = FirebaseAuth.getInstance();
+
         //Iniciar sesion
         btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,17 +7,19 @@ public class Alumno {
     private String idAlumno;
     private String nombre;
     private String email;
+    private Aula aula;
     private ArrayList<Libro> librosLeidos;
 
     public Alumno(){
 
     }
 
-    public Alumno(String idAlumno, String nombre, String email, ArrayList<Libro> librosLeidos) {
+    public Alumno(String idAlumno, String nombre, String email, ArrayList<Libro> librosLeidos, Aula aula) {
         this.idAlumno = idAlumno;
         this.nombre = nombre;
         this.email = email;
         this.librosLeidos = librosLeidos;
+        this.aula = aula;
     }
 
     public String getIdAlumno() {
@@ -50,5 +52,13 @@ public class Alumno {
 
     public void setLibrosLeidos(ArrayList<Libro> librosLeidos) {
         this.librosLeidos = librosLeidos;
+    }
+
+    public Aula getAula() {
+        return aula;
+    }
+
+    public void setAula(Aula aula) {
+        this.aula = aula;
     }
 }
