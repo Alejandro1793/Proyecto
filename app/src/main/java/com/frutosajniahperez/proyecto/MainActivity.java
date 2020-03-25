@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private final static String TAG = "Estado";
     TextView txtCorreo, txtContraseña;
-    Button btnIniciarSesion, btnRegistrarse;
+    Button btnIniciarSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         txtContraseña = findViewById(R.id.txtContrasenia);
 
         btnIniciarSesion = findViewById(R.id.btnInicioSesion);
-        btnRegistrarse = findViewById(R.id.btnRegistrarse);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -77,13 +77,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
-            }
-        });
-        //Registrar usuario
-        btnRegistrarse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RegistroNuevo.class));
             }
         });
 
