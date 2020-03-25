@@ -24,7 +24,7 @@ import java.util.Map;
 public class RegistroColegio extends AppCompatActivity {
 
     Button btnGenerarCodigo, btnAceptarCodigo;
-    TextView txtCodigoGenerado, txtIdCole;
+    TextView txtCodigoGenerado, txtIdCole, txtPrueba;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
