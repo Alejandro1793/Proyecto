@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegistroLibro"></activity>
+        <activity android:name=".Principal"></activity>
+        <activity android:name=".RegistroLibro" />
         <activity android:name=".RegistroAlumno" />
         <activity android:name=".RegistroAula" />
         <activity android:name=".RegistroProfe" />
