@@ -45,13 +45,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.486" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="13dp"
-        android:layout_height="27dp"
-        android:text="o"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

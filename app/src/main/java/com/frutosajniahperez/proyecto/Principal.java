@@ -12,9 +12,10 @@ public class Principal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+        setContentView(R.layout.activity_principal_1);
         btnRegistro = (findViewById(R.id.btnRegistro));
         btnInicioSesion = (findViewById(R.id.btnInicioSesion));
+
         //Pantalla para iniciar Sesion
 
         btnInicioSesion.setOnClickListener(new View.OnClickListener() {

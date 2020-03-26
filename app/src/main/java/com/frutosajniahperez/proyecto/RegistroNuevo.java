@@ -30,7 +30,7 @@ public class RegistroNuevo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_nuevo);
+        setContentView(R.layout.activity_registro_nuevo_2b);
 
         btnGenerar = findViewById(R.id.btnGenerar);
         txtPassGenerada = findViewById(R.id.txtPassGenerada);
@@ -61,6 +61,8 @@ public class RegistroNuevo extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
+                                    Toast.makeText(RegistroNuevo.this, "Usuario creado con éxito.",
+                                            Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
                                 } else {
@@ -90,7 +92,7 @@ public class RegistroNuevo extends AppCompatActivity {
 
     public void updateUI(FirebaseUser user){
         if (user != null){
-            Intent intent = new Intent(RegistroNuevo.this, RegistroColegio.class);
+            Intent intent = new Intent(RegistroNuevo.this, PantallaInicio.class);
             startActivity(intent);
             finish();
         }

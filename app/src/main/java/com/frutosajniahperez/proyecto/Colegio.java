@@ -9,7 +9,6 @@ public class Colegio {
     private ArrayList<Alumno> alumnado;
     private ArrayList<Profesor> profesorado;
     private ArrayList<Aula> aulas;
-    private ArrayList<Libro> biblioteca;
 
     public Colegio() {
         codigoSecreto = GeneradorContraseña.getPassword();
@@ -21,7 +20,6 @@ public class Colegio {
         this.alumnado = alumnado;
         this.profesorado = profesorado;
         this.aulas = aulas;
-        this.biblioteca = biblioteca;
     }
 
     public String getIdColegio() {
@@ -54,14 +52,6 @@ public class Colegio {
 
     public void setAulas(ArrayList<Aula> aulas) {
         this.aulas = aulas;
-    }
-
-    public ArrayList<Libro> getBiblioteca() {
-        return biblioteca;
-    }
-
-    public void setBiblioteca(ArrayList<Libro> biblioteca) {
-        this.biblioteca = biblioteca;
     }
 
     public String getCodigoSecreto() {
