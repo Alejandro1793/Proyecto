@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Proyecto</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
-    <string name="registro">Registrarse</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="imagenizq" />
+    <string name="generar_contra">Generar contraseña</string>
+    <string name="introduce_el_email">Introduce el email</string>
+    <string name="imagenprincipal">ImagenPrincipal</string>
+    <string name="registro">Registro</string>
+    <string name="introduce_la_contra">Introduce la contraseña</string>
+    <string name="tu_contra_es">Tu contraseña es:</string>
+
 </resources>
