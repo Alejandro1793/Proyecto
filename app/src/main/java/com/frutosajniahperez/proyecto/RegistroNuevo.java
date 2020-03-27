@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class RegistroNuevo extends AppCompatActivity {
     Button btnGenerar, btnAceptarDatos;
     TextView txtPassGenerada, txtEmail;
     FirebaseAuth mAuth;
+    ImageView btnRegresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class RegistroNuevo extends AppCompatActivity {
         setContentView(R.layout.activity_registro_nuevo_2b);
 
         btnGenerar = findViewById(R.id.btnGenerar);
+        btnRegresar = findViewById(R.id.btnRegresar);
         txtPassGenerada = findViewById(R.id.txtPassGenerada);
         txtEmail = findViewById(R.id.txtEmail);
         btnAceptarDatos = findViewById(R.id.btnAceptarDatos);
@@ -44,6 +47,8 @@ public class RegistroNuevo extends AppCompatActivity {
             public void onClick(View v) {
                 if (comprobarEmail(txtEmail.getText().toString())){
                     txtPassGenerada.setText(GeneradorContraseña.getPassword());
+                    txtEmail.setEnabled(false);
+                    btnGenerar.setEnabled(false);
                 } else {
                     Toast.makeText(RegistroNuevo.this, "Email incorrecto", Toast.LENGTH_LONG).show();
                     txtEmail.setText("");
@@ -74,6 +79,14 @@ public class RegistroNuevo extends AppCompatActivity {
                                 }
                             }
                         });
+            }
+        });
+
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegistroNuevo.this, Principal.class));
+                finish();
             }
         });
     }

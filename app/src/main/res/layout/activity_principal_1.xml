@@ -6,28 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Principal">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="284dp"
-        android:layout_height="245dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/Logo"
-        android:contentDescription="@string/imagenprincipal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39" />
-
     <Button
         android:id="@+id/btnInicioSesion"
         android:layout_width="356dp"
         android:layout_height="54dp"
+        android:layout_marginTop="109dp"
+        android:layout_marginBottom="196dp"
         android:background="@drawable/forma_boton"
         android:fontFamily="@font/yanone_kaffeesatz"
         android:text="@string/iniciar_sesion"
@@ -35,9 +19,8 @@
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/btnRegistro"
@@ -54,4 +37,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnInicioSesion"
         app:layout_constraintVertical_bias="0.428" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="313dp"
+        android:layout_height="268dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

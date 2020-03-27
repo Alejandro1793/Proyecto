@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "Estado";
     TextView txtCorreo, txtContraseña;
     Button btnIniciarSesion;
+    ImageView btnRegresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         txtContraseña = findViewById(R.id.txtContrasenia);
 
         btnIniciarSesion = findViewById(R.id.btnInicioSesion);
+        btnRegresar = findViewById(R.id.btnRegresar);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -77,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
+            }
+        });
+
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Principal.class));
+                finish();
             }
         });
 
