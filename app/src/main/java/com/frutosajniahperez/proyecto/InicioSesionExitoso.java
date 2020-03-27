@@ -27,7 +27,7 @@ public class InicioSesionExitoso extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(InicioSesionExitoso.this, MainActivity.class));
+                startActivity(new Intent(InicioSesionExitoso.this, IniciarSesion.class));
             }
         });
     }

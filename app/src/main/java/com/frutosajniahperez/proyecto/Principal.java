@@ -21,7 +21,7 @@ public class Principal extends AppCompatActivity {
         btnInicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Principal.this, MainActivity.class));
+                startActivity(new Intent(Principal.this, IniciarSesion.class));
             }
         });
 
@@ -30,7 +30,7 @@ public class Principal extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Principal.this, RegistroNuevo.class));
+                startActivity(new Intent(Principal.this, RegistroUsuario.class));
             }
         });
     }

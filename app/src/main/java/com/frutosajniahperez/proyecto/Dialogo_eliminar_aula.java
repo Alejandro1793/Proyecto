@@ -1,0 +1,51 @@
+package com.frutosajniahperez.proyecto;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.text.InputType;
+import android.view.View;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+public class Dialogo_eliminar_aula {
+
+    public interface ResultadoDialogoEliminarAula {
+        void ResultadoDialogoEliminarAula(String idAula);
+    }
+
+    private ResultadoDialogoEliminarAula interfaz;
+
+    public Dialogo_eliminar_aula(Context context, ResultadoDialogoEliminarAula actividad, ArrayAdapter<String> listado){
+
+        interfaz = actividad;
+
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialogo_eliminar_aula);
+        dialog.setCanceledOnTouchOutside(true);
+
+        Button btnEliminarAula = dialog.findViewById(R.id.btnEliminarAula);
+        final Spinner spAulaBorrado = dialog.findViewById(R.id.spAulaBorrado);
+        spAulaBorrado.setAdapter(listado);
+
+        btnEliminarAula.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                interfaz.ResultadoDialogoEliminarAula(spAulaBorrado.getSelectedItem().toString());
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+}

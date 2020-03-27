@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class RegistroProfe extends AppCompatActivity {
+public class Dialogo_eliminar_profe extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_profe);
+        setContentView(R.layout.dialogo_eliminar_profe);
     }
 }

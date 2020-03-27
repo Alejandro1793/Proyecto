@@ -11,9 +11,6 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.xml.sax.InputSource;
-
-import static android.text.InputFilter.*;
 
 public class Dialogo_aula {
 
@@ -33,23 +30,16 @@ public class Dialogo_aula {
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialogo_aula);
+        dialog.setCanceledOnTouchOutside(true);
 
         final EditText etIdAula = dialog.findViewById(R.id.etIdAula);
         etIdAula.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         TextView btnAceptarAula = dialog.findViewById(R.id.btnAceptarAula);
-        TextView btnCancelarAula = dialog.findViewById(R.id.btnCancelarAula);
 
         btnAceptarAula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 interfaz.ResultadoDialogoAula(etIdAula.getText().toString());
-                dialog.dismiss();
-            }
-        });
-
-        btnCancelarAula.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 dialog.dismiss();
             }
         });

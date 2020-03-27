@@ -52,7 +52,7 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
         btnGenerarCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (comprobarCodigo(txtIdCole.getText().toString())){
+                if (comprobarID(txtIdCole.getText().toString())){
                     txtCodigoGenerado.setText(cole.getCodigoSecreto());
                     btnRegistroAula.setEnabled(true);
                     txtIdCole.setEnabled(false);
@@ -106,7 +106,7 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
 
     }
 
-    public boolean comprobarCodigo(String codigo){
+    public boolean comprobarID(String codigo){
 
         if (codigo.length() == 8){
             return TextUtils.isDigitsOnly(codigo);
@@ -118,16 +118,18 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
 
     @Override
     public void ResultadoDialogoAula(String idAula) {
+
         Aula aula = new Aula();
         aula.setIdAula(idAula);
         aulas.add(aula);
         Toast.makeText(RegistroColegio.this, "Aula creada", Toast.LENGTH_LONG).show();
+
         if (aulas.size() == 1){
             btnAceptarCodigo.setEnabled(true);
         }
-        if (aulas.size() > profesorado.size()){
-            btnRegistroProfe.setEnabled(true);
-        }
+
+        btnRegistroProfe.setEnabled(true);
+
 
     }
 
@@ -142,5 +144,10 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
             }
         }
         profesorado.add(profe);
+        Toast.makeText(RegistroColegio.this, "Profesor creado", Toast.LENGTH_LONG).show();
+
+        if (aulas.size() <= profesorado.size()){
+            btnRegistroProfe.setEnabled(false);
+        }
     }
 }

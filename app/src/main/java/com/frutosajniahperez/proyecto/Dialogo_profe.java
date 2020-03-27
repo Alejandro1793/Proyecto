@@ -33,11 +33,11 @@ public class Dialogo_profe {
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialogo_profe);
+        dialog.setCanceledOnTouchOutside(true);
 
         final EditText etIdProfe = dialog.findViewById(R.id.etIdProfe);
         etIdProfe.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         TextView btnAceptarProfe = dialog.findViewById(R.id.btnAceptarProfe);
-        TextView btnCancelarProfe = dialog.findViewById(R.id.btnCancelarProfe);
         final Spinner spAulas = dialog.findViewById(R.id.spAulas);
 
         spAulas.setAdapter(listado);
@@ -47,13 +47,6 @@ public class Dialogo_profe {
             @Override
             public void onClick(View v) {
                 interfaz.ResultadoDialogoProfe(etIdProfe.getText().toString(), spAulas.getSelectedItem().toString());
-                dialog.dismiss();
-            }
-        });
-
-        btnCancelarProfe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 dialog.dismiss();
             }
         });

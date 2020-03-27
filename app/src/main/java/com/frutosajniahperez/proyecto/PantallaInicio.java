@@ -39,7 +39,7 @@ public class PantallaInicio extends AppCompatActivity {
         btnModificaCole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PantallaInicio.this, RegistroColegio.class));
+                startActivity(new Intent(PantallaInicio.this, ModificarColegio.class));
             }
         });
 

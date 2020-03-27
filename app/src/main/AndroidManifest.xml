@@ -9,16 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".RegistroLibro" />
-        <activity android:name=".RegistroAlumno" />
-        <activity android:name=".RegistroAula" />
-        <activity android:name=".RegistroProfe" />
+        <activity android:name=".Dialogo_eliminar_profe"></activity>
+        <activity android:name=".Dialogo_eliminar_aula" />
+        <activity android:name=".ModificarColegio" />
         <activity android:name=".PantallaInicio" />
         <activity android:name=".RegistroColegio" />
-        <activity android:name=".RegistroNuevo" />
+        <activity android:name=".RegistroUsuario" />
         <activity android:name=".InicioSesionExitoso" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".IniciarSesion" />
         <activity android:name=".Principal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

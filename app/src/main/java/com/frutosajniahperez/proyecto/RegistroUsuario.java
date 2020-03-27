@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegistroNuevo extends AppCompatActivity {
+public class RegistroUsuario extends AppCompatActivity {
 
     private static final String TAG = " ";
     Button btnGenerar, btnAceptarDatos;
@@ -32,7 +32,7 @@ public class RegistroNuevo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_nuevo_2b);
+        setContentView(R.layout.activity_registro_usuario_2b);
 
         btnGenerar = findViewById(R.id.btnGenerar);
         btnRegresar = findViewById(R.id.btnRegresar);
@@ -50,7 +50,7 @@ public class RegistroNuevo extends AppCompatActivity {
                     txtEmail.setEnabled(false);
                     btnGenerar.setEnabled(false);
                 } else {
-                    Toast.makeText(RegistroNuevo.this, "Email incorrecto", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistroUsuario.this, "Email incorrecto", Toast.LENGTH_LONG).show();
                     txtEmail.setText("");
                 }
             }
@@ -60,20 +60,20 @@ public class RegistroNuevo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPassGenerada.getText().toString())
-                        .addOnCompleteListener(RegistroNuevo.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(RegistroUsuario.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
-                                    Toast.makeText(RegistroNuevo.this, "Usuario creado con éxito.",
+                                    Toast.makeText(RegistroUsuario.this, "Usuario creado con éxito.",
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(RegistroNuevo.this, "Authentication failed.",
+                                    Toast.makeText(RegistroUsuario.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                     updateUI(null);
                                 }
@@ -85,7 +85,7 @@ public class RegistroNuevo extends AppCompatActivity {
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegistroNuevo.this, Principal.class));
+                startActivity(new Intent(RegistroUsuario.this, Principal.class));
                 finish();
             }
         });
@@ -105,7 +105,7 @@ public class RegistroNuevo extends AppCompatActivity {
 
     public void updateUI(FirebaseUser user){
         if (user != null){
-            Intent intent = new Intent(RegistroNuevo.this, PantallaInicio.class);
+            Intent intent = new Intent(RegistroUsuario.this, PantallaInicio.class);
             startActivity(intent);
             finish();
         }
