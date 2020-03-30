@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class Dialogo_aula {
 
-
+    //Creamos la interfaz para poder implementar el código en la clases CrearColegio y ModificarColegio
     public interface ResultadoDialogoAula {
         void ResultadoDialogoAula(String idAula);
     }
@@ -25,6 +25,7 @@ public class Dialogo_aula {
 
         interfaz = actividad;
 
+        //Creamos el dialogo con las características necesarias
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);

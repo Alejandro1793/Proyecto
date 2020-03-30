@@ -17,15 +17,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Set;
 
 public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.ResultadoDialogoAula, Dialogo_profe.ResultadoDialogoProfe {
 
     Button btnGenerarCodigo, btnAceptarCodigo, btnRegistroAula, btnRegistroProfe;
     TextView txtCodigoGenerado, txtIdCole;
     Colegio cole;
-    ArrayList<Aula> aulas;
+    HashMap<String, Aula> aulas;
     ArrayList<String> listadoAulas;
-    ArrayList<Profesor> profesorado;
+    HashMap<String, Profesor> profesorado;
     Context context;
 
     @Override
@@ -41,9 +45,8 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
         btnRegistroProfe = findViewById(R.id.btnRegistroProfe);
 
         cole = new Colegio();
-        aulas = new ArrayList<Aula>();
-        profesorado = new ArrayList<Profesor>();
-        listadoAulas = new ArrayList<String>();
+        aulas = new HashMap<>();
+        profesorado = new HashMap<>();
         context = this;
 
         cole.setAulas(aulas);
@@ -68,7 +71,6 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
             @Override
             public void onClick(View v) {
                 cole.setIdColegio(txtIdCole.getText().toString());
-                // Write a message to the database
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
                 database.collection("Colegios").document(txtIdCole.getText().toString()).set(cole).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -94,11 +96,9 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
         btnRegistroProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (Aula aula : aulas) {
-                    listadoAulas.add(aula.getIdAula());
-                }
+                Set<String> aulas = cole.getAulas().keySet();
+                listadoAulas = new ArrayList<>(aulas);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegistroColegio.this, android.R.layout.simple_spinner_item, listadoAulas);
-
                 new Dialogo_profe(context, RegistroColegio.this, adapter);
             }
         });
@@ -121,7 +121,7 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
 
         Aula aula = new Aula();
         aula.setIdAula(idAula);
-        aulas.add(aula);
+        aulas.put(idAula, aula);
         Toast.makeText(RegistroColegio.this, "Aula creada", Toast.LENGTH_LONG).show();
 
         if (aulas.size() == 1){
@@ -137,13 +137,8 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
     public void ResultadoDialogoProfe(String idProfe, String idAula) {
         Profesor profe = new Profesor();
         profe.setIdProfesor(idProfe);
-        for (int i = 0; i < aulas.size(); i++){
-            if (aulas.get(i).getIdAula().equals(idAula)){
-                profe.setAula(aulas.get(i));
-                break;
-            }
-        }
-        profesorado.add(profe);
+        profe.setAula(cole.getAulas().get(idAula));
+        cole.getProfesorado().put(idProfe, profe);
         Toast.makeText(RegistroColegio.this, "Profesor creado", Toast.LENGTH_LONG).show();
 
         if (aulas.size() <= profesorado.size()){

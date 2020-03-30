@@ -8,22 +8,21 @@ import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-
-
-public class Dialogo_profe {
+public class Dialogo_modificar_profe {
 
     //Creamos la interfaz para poder implementar el código en la clases CrearColegio y ModificarColegio
-    public interface ResultadoDialogoProfe{
-        void ResultadoDialogoProfe(String idProfe, String idAula);
+    public interface ResultadoDialogoModificarProfe{
+        void ResultadoDialogoModificarProfe(String idProfe, String idAula);
     }
 
-    private ResultadoDialogoProfe interfaz;
+    private ResultadoDialogoModificarProfe interfaz;
 
-    public Dialogo_profe(Context context, ResultadoDialogoProfe actividad, ArrayAdapter<String> listado){
+    public Dialogo_modificar_profe(Context context, ResultadoDialogoModificarProfe actividad, ArrayAdapter<String> listadoProfe, ArrayAdapter<String> listadoAula){
 
         interfaz = actividad;
 
@@ -32,21 +31,21 @@ public class Dialogo_profe {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setContentView(R.layout.dialogo_profe);
+        dialog.setContentView(R.layout.dialogo_modificar_profe);
         dialog.setCanceledOnTouchOutside(true);
 
-        final EditText etIdProfe = dialog.findViewById(R.id.etIdProfe);
-        etIdProfe.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        TextView btnAceptarProfe = dialog.findViewById(R.id.btnAceptarProfe);
-        final Spinner spAulas = dialog.findViewById(R.id.spAulas);
+        final Spinner spModProfe = dialog.findViewById(R.id.spModProfe);
+        final Spinner spModAula = dialog.findViewById(R.id.spModAula);
+        Button btnAceptarCambios = dialog.findViewById(R.id.btnAceptarCambios);
 
-        spAulas.setAdapter(listado);
+        spModProfe.setAdapter(listadoProfe);
+        spModAula.setAdapter(listadoAula);
 
 
-        btnAceptarProfe.setOnClickListener(new View.OnClickListener() {
+        btnAceptarCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interfaz.ResultadoDialogoProfe(etIdProfe.getText().toString(), spAulas.getSelectedItem().toString());
+                interfaz.ResultadoDialogoModificarProfe(spModProfe.getSelectedItem().toString(), spModAula.getSelectedItem().toString());
                 dialog.dismiss();
             }
         });

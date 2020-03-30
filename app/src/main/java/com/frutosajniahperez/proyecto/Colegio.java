@@ -1,20 +1,22 @@
 package com.frutosajniahperez.proyecto;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+
 
 public class Colegio {
 
     private String idColegio;
     private String codigoSecreto;
-    private ArrayList<Alumno> alumnado;
-    private ArrayList<Profesor> profesorado;
-    private ArrayList<Aula> aulas;
+    private HashMap<String, Alumno> alumnado;
+    private HashMap<String, Profesor> profesorado;
+    private HashMap<String, Aula> aulas;
 
     public Colegio() {
         codigoSecreto = GeneradorContraseña.getPassword();
     }
 
-    public Colegio(String idColegio, ArrayList<Alumno> alumnado, ArrayList<Profesor> profesorado, ArrayList<Aula> aulas, ArrayList<Libro> biblioteca) {
+    public Colegio(String idColegio, HashMap<String, Alumno> alumnado, HashMap<String, Profesor> profesorado, HashMap<String, Aula> aulas) {
         this.idColegio = idColegio;
         codigoSecreto = GeneradorContraseña.getPassword();
         this.alumnado = alumnado;
@@ -30,27 +32,27 @@ public class Colegio {
         this.idColegio = idColegio;
     }
 
-    public ArrayList<Alumno> getAlumnado() {
+    public HashMap<String, Alumno> getAlumnado() {
         return alumnado;
     }
 
-    public void setAlumnado(ArrayList<Alumno> alumnado) {
+    public void setAlumnado(HashMap<String, Alumno> alumnado) {
         this.alumnado = alumnado;
     }
 
-    public ArrayList<Profesor> getProfesorado() {
+    public HashMap<String, Profesor> getProfesorado() {
         return profesorado;
     }
 
-    public void setProfesorado(ArrayList<Profesor> profesorado) {
+    public void setProfesorado(HashMap<String, Profesor> profesorado) {
         this.profesorado = profesorado;
     }
 
-    public ArrayList<Aula> getAulas() {
+    public HashMap<String, Aula> getAulas() {
         return aulas;
     }
 
-    public void setAulas(ArrayList<Aula> aulas) {
+    public void setAulas(HashMap<String, Aula> aulas) {
         this.aulas = aulas;
     }
 

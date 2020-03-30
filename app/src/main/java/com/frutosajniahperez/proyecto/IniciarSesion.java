@@ -103,7 +103,7 @@ public class IniciarSesion extends AppCompatActivity {
 
     public void updateUI(FirebaseUser user){
         if (user != null){
-            Intent intent = new Intent(IniciarSesion.this, InicioSesionExitoso.class);
+            Intent intent = new Intent(IniciarSesion.this, PantallaInicio.class);
             startActivity(intent);
             finish();
         }

@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class Dialogo_eliminar_aula {
 
+    //Creamos la interfaz para poder implementar el código en la clase ModificarColegio
     public interface ResultadoDialogoEliminarAula {
         void ResultadoDialogoEliminarAula(String idAula);
     }
@@ -27,6 +28,7 @@ public class Dialogo_eliminar_aula {
 
         interfaz = actividad;
 
+        //Creamos el dialogo con las características necesarias
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,19 +15,23 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Set;
 
-public class ModificarColegio extends AppCompatActivity implements Dialogo_profe.ResultadoDialogoProfe, Dialogo_aula.ResultadoDialogoAula, Dialogo_eliminar_aula.ResultadoDialogoEliminarAula {
+public class ModificarColegio extends AppCompatActivity implements Dialogo_profe.ResultadoDialogoProfe, Dialogo_aula.ResultadoDialogoAula, Dialogo_eliminar_aula.ResultadoDialogoEliminarAula, Dialogo_eliminar_profe.ResultadoDialogoEliminarProfe, Dialogo_modificar_profe.ResultadoDialogoModificarProfe {
 
     Colegio cole;
     TextView txtIdColeMod, txtPassColeMod;
     Button btnAñadirAulaMod, btnAñadirProfeMod, btnEliminarAulaMod, btnEliminarProfeMod, btnBuscarCole, btnModificaProfe;
+    FloatingActionButton btnConfirmarCambios;
     Context context;
-    ArrayList<String> listadoAulas;
+    ArrayList<String> listadoAulas, listadoProfes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class ModificarColegio extends AppCompatActivity implements Dialogo_profe
 
         context = this;
         listadoAulas = new ArrayList<>();
+        listadoProfes = new ArrayList<>();
 
         txtIdColeMod = findViewById(R.id.txtIdColeMod);
         txtPassColeMod = findViewById(R.id.txtPassColeMod);
@@ -44,14 +50,17 @@ public class ModificarColegio extends AppCompatActivity implements Dialogo_profe
         btnEliminarProfeMod = findViewById(R.id.btnEliminarProfeMod);
         btnModificaProfe = findViewById(R.id.btnModificaProfe);
         btnBuscarCole = findViewById(R.id.btnBuscarCole);
+        btnConfirmarCambios = findViewById(R.id.btnConfimarCambio);
 
 
         btnBuscarCole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (comprobarID(txtIdColeMod.getText().toString())) {
 
+                if (comprobarID(txtIdColeMod.getText().toString())) {
+                    //Crea la conexión con Firebase
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    //Creamos la referencia a un documento con el ID recibido del usuario
                     DocumentReference docRef = db.collection("Colegios").document(txtIdColeMod.getText().toString());
                     docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
@@ -66,6 +75,7 @@ public class ModificarColegio extends AppCompatActivity implements Dialogo_profe
                                     btnModificaProfe.setEnabled(true);
                                     txtIdColeMod.setEnabled(false);
                                     txtPassColeMod.setEnabled(false);
+                                    btnBuscarCole.setEnabled(false);
                                 } else {
                                     Toast.makeText(ModificarColegio.this, "Código secreto incorrecto", Toast.LENGTH_LONG).show();
                                 }
@@ -85,6 +95,7 @@ public class ModificarColegio extends AppCompatActivity implements Dialogo_profe
             }
         });
 
+        //Inicia el dialogo para añadir aula
         btnAñadirAulaMod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,32 +103,58 @@ public class ModificarColegio extends AppCompatActivity implements Dialogo_profe
             }
         });
 
+        //Carga un arrayadapter de los ID de las aulas y se pasa al dialogo para cargar su spinner
         btnAñadirProfeMod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (Aula aula : cole.getAulas()) {
-                    listadoAulas.add(aula.getIdAula());
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ModificarColegio.this, android.R.layout.simple_spinner_item, listadoAulas);
-
-                new Dialogo_profe(context, ModificarColegio.this, adapter);
+                new Dialogo_profe(context, ModificarColegio.this, cargarListados("aulas"));
             }
         });
 
+        //Carga un arrayadapter de los ID de las aulas y se pasa al dialogo para cargar su spinner
         btnEliminarAulaMod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (Aula aula : cole.getAulas()) {
-                    listadoAulas.add(aula.getIdAula());
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ModificarColegio.this, android.R.layout.simple_spinner_item, listadoAulas);
+                new Dialogo_eliminar_aula(context, ModificarColegio.this, cargarListados("aulas"));
+            }
+        });
 
-                new Dialogo_eliminar_aula(context, ModificarColegio.this, adapter);
+        //Carga un arrayadapter de los ID de las profesores y se pasa al dialogo para cargar su spinner
+        btnEliminarProfeMod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Dialogo_eliminar_profe(context, ModificarColegio.this, cargarListados("profes"));
+            }
+        });
+
+        btnModificaProfe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Dialogo_modificar_profe(context, ModificarColegio.this, cargarListados("profes"), cargarListados("aulas"));
+            }
+        });
+
+        btnConfirmarCambios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                database.collection("Colegios").document(txtIdColeMod.getText().toString()).set(cole).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ModificarColegio.this, "El colegio se ha modificado con éxito", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ModificarColegio.this, "Fallo la modificación del colegio", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
     }
 
+    //Comprueba si el ID tiene longitud 8 y son todos números
     public boolean comprobarID(String id){
 
         if (id.length() == 8){
@@ -127,44 +164,78 @@ public class ModificarColegio extends AppCompatActivity implements Dialogo_profe
         }
     }
 
+
     public boolean comprobarCodigo(String codigo){
 
         return (codigo.length() == 8);
     }
 
+    //Crea los listados necesarios para los spinners de los dialogos
+    public ArrayAdapter<String> cargarListados(String listado){
 
+        ArrayAdapter<String> adapter = null;
+
+        if (listado.equals("aulas")) {
+            Set<String> aulas = cole.getAulas().keySet();
+            listadoAulas = new ArrayList<>(aulas);
+            adapter = new ArrayAdapter<String>(ModificarColegio.this, android.R.layout.simple_spinner_item, listadoAulas);
+
+
+        } else if (listado.equals("profes")){
+            Set<String> profes = cole.getProfesorado().keySet();
+            listadoProfes = new ArrayList<>(profes);
+            adapter = new ArrayAdapter<>(ModificarColegio.this, android.R.layout.simple_spinner_item, listadoProfes);
+
+        }
+        return adapter;
+    }
+
+    //Crea un aula con el ID resultado recibido del dialogo
     @Override
     public void ResultadoDialogoAula(String idAula) {
         Aula aula = new Aula();
         aula.setIdAula(idAula);
-        cole.getAulas().add(aula);
-        Toast.makeText(ModificarColegio.this, "Aula creada", Toast.LENGTH_LONG).show();
+        if (cole.getAulas().containsKey(idAula)){
+            Toast.makeText(ModificarColegio.this, "Aula ya existe", Toast.LENGTH_LONG).show();
+        } else{
+            cole.getAulas().put(idAula, aula);
+            Toast.makeText(ModificarColegio.this, "Aula creada", Toast.LENGTH_LONG).show();
+        }
+
     }
 
+    //Crea un profesor con el ID del profesor y del aula recibidos del dialogo
     @Override
     public void ResultadoDialogoProfe(String idProfe, String idAula) {
 
         Profesor profe = new Profesor();
         profe.setIdProfesor(idProfe);
-        for (int i = 0; i < cole.getAulas().size(); i++){
-            if (cole.getAulas().get(i).getIdAula().equals(idAula)){
-                profe.setAula(cole.getAulas().get(i));
-                break;
-            }
+        profe.setAula(cole.getAulas().get(idAula));
+        if(cole.getProfesorado().containsKey(idProfe)){
+            Toast.makeText(ModificarColegio.this, "Profesor ya existe", Toast.LENGTH_LONG).show();
+        }else{
+            cole.getProfesorado().put(idProfe, profe);
+            Toast.makeText(ModificarColegio.this, "Profesor creado", Toast.LENGTH_LONG).show();
         }
-        cole.getProfesorado().add(profe);
-        Toast.makeText(ModificarColegio.this, "Profesor creado", Toast.LENGTH_LONG).show();
+
 
     }
 
+    //Elimina el aula con el ID recibido del dialogo
     @Override
     public void ResultadoDialogoEliminarAula(String idAula) {
+        cole.getAulas().remove(idAula);
+    }
 
-        for (int i = 0; i < cole.getAulas().size(); i++){
-            if (cole.getAulas().get(i).getIdAula().equals(idAula)){
-                cole.getAulas().remove(i);
-                break;
-            }
-        }
+    //Elimina el profesor con el ID recibido del dialogo
+    @Override
+    public void ResultadoDialogoEliminarProfe(String idProfe) {
+        cole.getProfesorado().remove(idProfe);
+    }
+
+    //Modifica el aula del profesor con el ID recibido del dialogo
+    @Override
+    public void ResultadoDialogoModificarProfe(String idProfe, String idAula) {
+        cole.getProfesorado().get(idProfe).setAula(cole.getAulas().get(idAula));
     }
 }
