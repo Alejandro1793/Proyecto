@@ -15,7 +15,7 @@ public class Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        setContentView(R.layout.activity_principal1);
+        setContentView(R.layout.activity_principal);
         btnRegistro = (findViewById(R.id.btnRegistro));
         btnInicioSesion = (findViewById(R.id.btnInicioSesion));
 
