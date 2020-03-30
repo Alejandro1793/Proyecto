@@ -1,8 +1,5 @@
 package com.frutosajniahperez.proyecto;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +8,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,6 +49,7 @@ public class RegistroUsuario extends AppCompatActivity {
                     txtPassGenerada.setText(GeneradorContraseña.getPassword());
                     txtEmail.setEnabled(false);
                     btnGenerar.setEnabled(false);
+                    btnAceptarDatos.setEnabled(true);
                 } else {
                     Toast.makeText(RegistroUsuario.this, "Email incorrecto", Toast.LENGTH_LONG).show();
                     txtEmail.setText("");

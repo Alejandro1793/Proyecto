@@ -1,9 +1,7 @@
 package com.frutosajniahperez.proyecto;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,19 +10,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Set;
 
 public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.ResultadoDialogoAula, Dialogo_profe.ResultadoDialogoProfe {
 
-    Button btnGenerarCodigo, btnAceptarCodigo, btnRegistroAula, btnRegistroProfe;
+    Button btnGenerarCodigo, btnAceptarCodigo, btnRegistroAula, btnRegistroProfe, btnAtras;
     TextView txtCodigoGenerado, txtIdCole;
     Colegio cole;
     HashMap<String, Aula> aulas;
@@ -43,6 +42,7 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
         btnAceptarCodigo = findViewById(R.id.btnAceptarCodigo);
         btnRegistroAula = findViewById(R.id.btnRegitroAula);
         btnRegistroProfe = findViewById(R.id.btnRegistroProfe);
+        btnAtras = findViewById(R.id.btnAtras);
 
         cole = new Colegio();
         aulas = new HashMap<>();
@@ -100,6 +100,13 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
                 listadoAulas = new ArrayList<>(aulas);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegistroColegio.this, android.R.layout.simple_spinner_item, listadoAulas);
                 new Dialogo_profe(context, RegistroColegio.this, adapter);
+            }
+        });
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegistroColegio.this, PantallaInicio.class));
             }
         });
 

@@ -10,5 +10,7 @@
     <string name="registro">Registro</string>
     <string name="introduce_la_contra">Introduce la contraseña</string>
     <string name="tu_contra_es">Tu contraseña es:</string>
+    <string name="iniciar_usuario_como_administrador">iniciar usuario como administrador</string>
+    <string name="iniciar_usuario_como_profesor">iniciar usuario como profesor</string>
 
 </resources>

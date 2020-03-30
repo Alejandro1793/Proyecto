@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.text.InputFilter;
 import android.text.InputType;
 import android.view.View;
 import android.view.Window;

@@ -13,7 +13,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
-
 public class Dialogo_profe {
 
     //Creamos la interfaz para poder implementar el código en la clases CrearColegio y ModificarColegio
