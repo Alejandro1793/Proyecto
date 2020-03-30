@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class Dialogo_eliminar_profe  {
 
@@ -31,7 +32,7 @@ public class Dialogo_eliminar_profe  {
         dialog.setContentView(R.layout.dialogo_eliminar_profe);
         dialog.setCanceledOnTouchOutside(true);
 
-        Button btnEliminarProfe = dialog.findViewById(R.id.btnEliminarProfe);
+        TextView btnEliminarProfe = dialog.findViewById(R.id.btnEliminarProfe);
         final Spinner spProfeBorrado = dialog.findViewById(R.id.spProfeBorrado);
         spProfeBorrado.setAdapter(listado);
 

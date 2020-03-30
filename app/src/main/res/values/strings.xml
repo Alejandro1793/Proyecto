@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Proyecto</string>
-    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="inicia_sesion">Iniciar Sesión</string>
+    <string name="iniciar_sesion_admin">Iniciar Sesión de administrador</string>
     <string name="registrarse">Registrarse</string>
     <string name="aceptar">Aceptar</string>
     <string name="imagenizq" />
@@ -10,7 +11,24 @@
     <string name="registro">Registro</string>
     <string name="introduce_la_contra">Introduce la contraseña</string>
     <string name="tu_contra_es">Tu contraseña es:</string>
-    <string name="iniciar_usuario_como_administrador">iniciar usuario como administrador</string>
-    <string name="iniciar_usuario_como_profesor">iniciar usuario como profesor</string>
+    <string name="iniciar_sesion_como_administrador">Inicio sesión como administrador</string>
+    <string name="iniciar_sesion_como_profesor">Inicio sesión como profesor</string>
+    <string name="confirmar_registro">Confirmar Registro</string>
+    <string name="apunta_tu_contrase_a_en_un_lugar_seguro">Apunta tu contraseña en un lugar seguro</string>
+    <string name="crear_colegio">Crear colegio</string>
+    <string name="modificar_colegio">Modificar colegio</string>
+    <string name="introduce_el_id">Introduce el ID</string>
+    <string name="introduce_el_c_digo">Introduce el código</string>
+    <string name="a_adir_aula">Añadir aula</string>
+    <string name="buscar_colegio">Buscar colegio</string>
+    <string name="eliminar_aula">Eliminar aula</string>
+    <string name="modificar_profesor">Modificar profesor</string>
+    <string name="eliminar_profesor">Eliminar profesor</string>
+    <string name="a_adir_profesor">Añadir profesor</string>
+    <string name="introduce_id_aula">Introduce Id Aula</string>
+
+    <string name="introduce_el_nuevo_aula">Introduce el nuevo aula</string>
+    <string name="selecciona_el_id_del_profesor">Selecciona el ID del profesor</string>
+    <string name="selecciona_el_id_del_aula">Selecciona el Id del Aula</string>
 
 </resources>

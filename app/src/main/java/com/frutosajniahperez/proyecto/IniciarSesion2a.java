@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class IniciarSesion extends AppCompatActivity {
+public class IniciarSesion2a extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private final static String TAG = "Estado";
@@ -50,30 +50,30 @@ public class IniciarSesion extends AppCompatActivity {
                 password = txtContraseña.getText().toString();
 
                 if (TextUtils.isEmpty(email)){
-                    Toast.makeText(IniciarSesion.this, "El usuario no puede estar vacío", Toast.LENGTH_LONG).show();
+                    Toast.makeText(IniciarSesion2a.this, "El usuario no puede estar vacío", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)){
-                    Toast.makeText(IniciarSesion.this, "La contraseña no puede estar vacía", Toast.LENGTH_LONG).show();
+                    Toast.makeText(IniciarSesion2a.this, "La contraseña no puede estar vacía", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(IniciarSesion.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(IniciarSesion2a.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
-                                    Toast.makeText(IniciarSesion.this, "Sesión Iniciada",
+                                    Toast.makeText(IniciarSesion2a.this, "Sesión Iniciada",
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(IniciarSesion.this, "Authentication failed.",
+                                    Toast.makeText(IniciarSesion2a.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                     updateUI(null);
                                 }
@@ -85,7 +85,7 @@ public class IniciarSesion extends AppCompatActivity {
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(IniciarSesion.this, Principal.class));
+                startActivity(new Intent(IniciarSesion2a.this, IniciarSesion2.class));
                 finish();
             }
         });
@@ -102,7 +102,7 @@ public class IniciarSesion extends AppCompatActivity {
 
     public void updateUI(FirebaseUser user){
         if (user != null){
-            Intent intent = new Intent(IniciarSesion.this, PantallaInicio.class);
+            Intent intent = new Intent(IniciarSesion2a.this, PantallaInicio3.class);
             startActivity(intent);
             finish();
         }

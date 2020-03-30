@@ -8,8 +8,8 @@
     tools:context=".Dialogo_eliminar_aula">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="374dp"
-        android:layout_height="276dp"
+        android:layout_width="370dp"
+        android:layout_height="260dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,28 +17,44 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.431">
 
-        <Spinner
-            android:id="@+id/spAulaBorrado"
-            android:layout_width="105dp"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.105" />
-
-        <Button
-            android:id="@+id/btnEliminarAula"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Eliminar aula"
+        <TextView
+            android:id="@+id/lblMod4"
+            android:layout_width="168dp"
+            android:layout_height="22dp"
+            android:fontFamily="@font/nova_slim"
+            android:text="@string/selecciona_el_id_del_aula"
+            android:textColor="#6680D4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.552" />
+            app:layout_constraintVertical_bias="0.154" />
+
+        <Spinner
+            android:id="@+id/spAulaBorrado"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.352" />
+
+        <TextView
+            android:id="@+id/btnEliminarAula"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/yanone_kaffeesatz"
+            android:text="@string/eliminar_aula"
+            android:textColor="#6680D4"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.718" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

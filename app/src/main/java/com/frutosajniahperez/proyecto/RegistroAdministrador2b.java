@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegistroUsuario extends AppCompatActivity {
+public class RegistroAdministrador2b extends AppCompatActivity {
 
     private static final String TAG = " ";
     Button btnGenerar, btnAceptarDatos;
@@ -51,7 +51,7 @@ public class RegistroUsuario extends AppCompatActivity {
                     btnGenerar.setEnabled(false);
                     btnAceptarDatos.setEnabled(true);
                 } else {
-                    Toast.makeText(RegistroUsuario.this, "Email incorrecto", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistroAdministrador2b.this, "Email incorrecto", Toast.LENGTH_LONG).show();
                     txtEmail.setText("");
                 }
             }
@@ -61,20 +61,20 @@ public class RegistroUsuario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPassGenerada.getText().toString())
-                        .addOnCompleteListener(RegistroUsuario.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(RegistroAdministrador2b.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
-                                    Toast.makeText(RegistroUsuario.this, "Usuario creado con éxito.",
+                                    Toast.makeText(RegistroAdministrador2b.this, "Usuario creado con éxito.",
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(RegistroUsuario.this, "Authentication failed.",
+                                    Toast.makeText(RegistroAdministrador2b.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                     updateUI(null);
                                 }
@@ -86,7 +86,7 @@ public class RegistroUsuario extends AppCompatActivity {
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegistroUsuario.this, Principal.class));
+                startActivity(new Intent(RegistroAdministrador2b.this, Principal.class));
                 finish();
             }
         });
@@ -106,7 +106,7 @@ public class RegistroUsuario extends AppCompatActivity {
 
     public void updateUI(FirebaseUser user){
         if (user != null){
-            Intent intent = new Intent(RegistroUsuario.this, PantallaInicio.class);
+            Intent intent = new Intent(RegistroAdministrador2b.this, PantallaInicio3.class);
             startActivity(intent);
             finish();
         }

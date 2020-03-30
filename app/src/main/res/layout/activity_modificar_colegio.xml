@@ -4,14 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ModificarColegio">
+    tools:context=".ModificarColegio4">
+
+    <ImageView
+        android:id="@+id/btnRegresar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="366dp"
+        android:layout_marginRight="366dp"
+        android:contentDescription="@string/imagenizq"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/izq" />
 
     <EditText
         android:id="@+id/txtIdColeMod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
         android:ems="10"
-        android:hint="Introduce el ID"
+        android:fontFamily="@font/nova_slim"
+        android:hint="@string/introduce_el_id"
         android:inputType="number"
         android:maxLength="8"
         android:singleLine="true"
@@ -19,33 +37,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintVertical_bias="0.16"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/txtPassColeMod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
         android:ems="10"
-        android:hint="Introduce el código"
+        android:fontFamily="@font/nova_slim"
+        android:hint="@string/introduce_el_c_digo"
         android:inputType="textPassword"
         android:maxLength="8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintVertical_bias="0.266"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/btnBuscarCole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buscar colegio"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:background="@drawable/forma_boton_contraria"
+        android:fontFamily="@font/yanone_kaffeesatz"
+        android:text="@string/buscar_colegio"
+        android:textColor="#6680D4"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.423" />
+        app:layout_constraintVertical_bias="0.373" />
 
     <Button
         android:id="@+id/btnAñadirAulaMod"
@@ -55,7 +79,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="320dp"
         android:enabled="false"
-        android:text="Añadir aula"
+        android:text="@string/a_adir_aula"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -67,7 +91,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="128dp"
         android:enabled="false"
-        android:text="Eliminar aula"
+        android:text="@string/eliminar_aula"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -79,7 +103,7 @@
         android:layout_marginLeft="272dp"
         android:layout_marginBottom="320dp"
         android:enabled="false"
-        android:text="Añadir profesor"
+        android:text="@string/a_adir_profesor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -91,7 +115,7 @@
         android:layout_marginLeft="256dp"
         android:layout_marginBottom="128dp"
         android:enabled="false"
-        android:text="Eliminar profesor"
+        android:text="@string/eliminar_profesor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -100,25 +124,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:text="Modificar profesor"
+        android:text="@string/modificar_profesor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.669" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnConfimarCambio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="16dp"
+        android:baselineAlignBottom="false"
+        android:clickable="false"
+        android:duplicateParentState="true"
+        app:backgroundTint="#6680D4"
+        app:borderWidth="0.1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976"
-        app:srcCompat="@android:drawable/checkbox_on_background" />
+        app:maxImageSize="55dp"
+        app:srcCompat="@drawable/plus_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -106,7 +106,7 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegistroColegio.this, PantallaInicio.class));
+                startActivity(new Intent(RegistroColegio.this, PantallaInicio3.class));
             }
         });
 

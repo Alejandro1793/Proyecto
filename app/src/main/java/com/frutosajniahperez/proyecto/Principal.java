@@ -15,7 +15,7 @@ public class Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        setContentView(R.layout.activity_principal_1);
+        setContentView(R.layout.activity_principal1);
         btnRegistro = (findViewById(R.id.btnRegistro));
         btnInicioSesion = (findViewById(R.id.btnInicioSesion));
 
@@ -33,7 +33,7 @@ public class Principal extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Principal.this, RegistroUsuario.class));
+                startActivity(new Intent(Principal.this, RegistroAdministrador2b.class));
             }
         });
     }

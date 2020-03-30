@@ -6,27 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".IniciarSesion2">
 
-    <Button
-        android:id="@+id/btnISAdmin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/iniciar_usuario_como_administrador"
+    <ImageView
+        android:id="@+id/btnRegresar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="366dp"
+        android:layout_marginRight="366dp"
+        android:contentDescription="@string/imagenizq"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57" />
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/izq" />
 
     <Button
         android:id="@+id/btnISProfe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/iniciar_usuario_como_profesor"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:background="@drawable/forma_boton_contraria"
+        android:fontFamily="@font/yanone_kaffeesatz"
+        android:text="@string/iniciar_sesion_como_profesor"
+        android:textColor="#6680D4"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.347" />
+        app:layout_constraintVertical_bias="0.376" />
+
+    <Button
+        android:id="@+id/btnISAdmin"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:background="@drawable/forma_boton"
+        android:fontFamily="@font/yanone_kaffeesatz"
+        android:text="@string/iniciar_sesion_como_administrador"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.521" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

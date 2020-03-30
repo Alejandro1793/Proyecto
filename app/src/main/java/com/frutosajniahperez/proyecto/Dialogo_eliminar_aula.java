@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class Dialogo_eliminar_aula {
 
@@ -31,7 +32,7 @@ public class Dialogo_eliminar_aula {
         dialog.setContentView(R.layout.dialogo_eliminar_aula);
         dialog.setCanceledOnTouchOutside(true);
 
-        Button btnEliminarAula = dialog.findViewById(R.id.btnEliminarAula);
+        TextView btnEliminarAula = dialog.findViewById(R.id.btnEliminarAula);
         final Spinner spAulaBorrado = dialog.findViewById(R.id.spAulaBorrado);
         spAulaBorrado.setAdapter(listado);
 

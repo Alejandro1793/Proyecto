@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class Dialogo_modificar_profe {
 
@@ -33,7 +34,7 @@ public class Dialogo_modificar_profe {
 
         final Spinner spModProfe = dialog.findViewById(R.id.spModProfe);
         final Spinner spModAula = dialog.findViewById(R.id.spModAula);
-        Button btnAceptarCambios = dialog.findViewById(R.id.btnAceptarCambios);
+        TextView btnAceptarCambios = dialog.findViewById(R.id.btnAceptarCambios);
 
         spModProfe.setAdapter(listadoProfe);
         spModAula.setAdapter(listadoAula);

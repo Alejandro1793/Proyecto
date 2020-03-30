@@ -7,8 +7,8 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="354dp"
-        android:layout_height="321dp"
+        android:layout_width="370sp"
+        android:layout_height="320dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
 
         <Spinner
             android:id="@+id/spModProfe"
-            android:layout_width="253dp"
+            android:layout_width="340sp"
             android:layout_height="43dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,8 +28,8 @@
 
         <Spinner
             android:id="@+id/spModAula"
-            android:layout_width="91dp"
-            android:layout_height="39dp"
+            android:layout_width="170sp"
+            android:layout_height="50sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
@@ -37,39 +37,45 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.613" />
 
-        <Button
-            android:id="@+id/btnAceptarCambios"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aceptar cambios"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.893" />
-
         <TextView
             android:id="@+id/lblMod2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nova_slim"
-            android:text="Introduce el nuevo aula"
+            android:text="@string/introduce_el_nuevo_aula"
+            android:textColor="#6680D4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.43" />
+            app:layout_constraintVertical_bias="0.438" />
 
         <TextView
             android:id="@+id/lblMod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nova_slim"
-            android:text="Selecciona el ID del profesor"
+            android:text="@string/selecciona_el_id_del_profesor"
+            android:textColor="#6680D4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.053" />
+
+        <TextView
+            android:id="@+id/btnAceptarCambios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:layout_marginBottom="53dp"
+            android:fontFamily="@font/yanone_kaffeesatz"
+            android:text="@string/aceptar"
+            android:textColor="#6680D4"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spModAula" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

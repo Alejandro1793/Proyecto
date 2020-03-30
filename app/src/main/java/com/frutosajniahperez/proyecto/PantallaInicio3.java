@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class PantallaInicio extends AppCompatActivity {
+public class PantallaInicio3 extends AppCompatActivity {
 
     Button btnCrearCole, btnEntrarProfe, btnModificaCole;
 
@@ -23,14 +23,14 @@ public class PantallaInicio extends AppCompatActivity {
         btnCrearCole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PantallaInicio.this, RegistroColegio.class));
+                startActivity(new Intent(PantallaInicio3.this, RegistroColegio.class));
             }
         });
 
         btnModificaCole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PantallaInicio.this, ModificarColegio.class));
+                startActivity(new Intent(PantallaInicio3.this, ModificarColegio4.class));
             }
         });
 
