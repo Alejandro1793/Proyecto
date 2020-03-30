@@ -48,9 +48,10 @@
         android:layout_marginRight="38dp"
         android:layout_marginBottom="39dp"
         android:contentDescription="@string/imagenizq"
+
         app:layout_constraintBottom_toTopOf="@+id/btnInicioSesion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.35000002"
