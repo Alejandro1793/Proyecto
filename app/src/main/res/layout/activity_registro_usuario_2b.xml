@@ -123,6 +123,7 @@
         android:ems="10"
         android:fontFamily="@font/nova_slim"
         android:hint="@string/introduce_el_email"
+        android:backgroundTint="#6680d4"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/btnGenerar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,6 +131,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="1.0"
-        android:autofillHints="" />
+        android:autofillHints="" tools:targetApi="lollipop"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
