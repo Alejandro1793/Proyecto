@@ -5,10 +5,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Dialogo_aula {
@@ -39,8 +41,12 @@ public class Dialogo_aula {
         btnAceptarAula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interfaz.ResultadoDialogoAula(etIdAula.getText().toString());
-                dialog.dismiss();
+                if (!TextUtils.isEmpty(etIdAula.getText().toString())){
+                    interfaz.ResultadoDialogoAula(etIdAula.getText().toString());
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(dialog.getContext(), "El ID no puede estar vacío", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

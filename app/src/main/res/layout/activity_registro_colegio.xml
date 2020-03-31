@@ -53,12 +53,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnAceptarCodigo"
+        android:id="@+id/btnAceptarCole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="204dp"
         android:layout_marginLeft="204dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="48dp"
         android:enabled="false"
         android:text="Aceptar colegio"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -11,13 +11,11 @@ public class Colegio {
     private HashMap<String, Profesor> profesorado;
     private HashMap<String, Aula> aulas;
 
-    public Colegio() {
-        codigoSecreto = GeneradorContraseña.getPassword();
-    }
+    public Colegio() {}
 
-    public Colegio(String idColegio, HashMap<String, Alumno> alumnado, HashMap<String, Profesor> profesorado, HashMap<String, Aula> aulas) {
+    public Colegio(String idColegio, String codigoSecreto,HashMap<String, Alumno> alumnado, HashMap<String, Profesor> profesorado, HashMap<String, Aula> aulas) {
         this.idColegio = idColegio;
-        codigoSecreto = GeneradorContraseña.getPassword();
+        this.codigoSecreto = codigoSecreto;
         this.alumnado = alumnado;
         this.profesorado = profesorado;
         this.aulas = aulas;

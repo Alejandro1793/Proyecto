@@ -5,12 +5,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Dialogo_profe {
@@ -45,12 +47,22 @@ public class Dialogo_profe {
         btnAceptarProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interfaz.ResultadoDialogoProfe(etIdProfe.getText().toString(), spAulas.getSelectedItem().toString());
-                dialog.dismiss();
+                if (comprobarID(etIdProfe.getText().toString())){
+                    interfaz.ResultadoDialogoProfe(etIdProfe.getText().toString(), spAulas.getSelectedItem().toString());
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(dialog.getContext(), "El ID tiene que ser de longitud 8", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
         dialog.show();
 
+    }
+
+    public boolean comprobarID(String idProfe){
+
+        return (idProfe.length() == 8);
     }
 }

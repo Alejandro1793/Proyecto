@@ -145,8 +145,10 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         btnConfirmarCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Se obtiene la referencia a la base de datos y se actualiza con los cambios realizados
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
-                database.collection("Colegios").document(txtIdColeMod.getText().toString()).set(cole).addOnSuccessListener(new OnSuccessListener<Void>() {
+                DocumentReference docRef = database.collection("Colegios").document(txtIdColeMod.getText().toString());
+                docRef.set(cole).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(ModificarColegio4.this, "El colegio se ha modificado con éxito", Toast.LENGTH_LONG).show();
@@ -201,11 +203,12 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     //Crea un aula con el ID resultado recibido del dialogo
     @Override
     public void ResultadoDialogoAula(String idAula) {
-        Aula aula = new Aula();
-        aula.setIdAula(idAula);
+
         if (cole.getAulas().containsKey(idAula)){
             Toast.makeText(ModificarColegio4.this, "Aula ya existe", Toast.LENGTH_LONG).show();
         } else{
+            Aula aula = new Aula();
+            aula.setIdAula(idAula);
             cole.getAulas().put(idAula, aula);
             Toast.makeText(ModificarColegio4.this, "Aula creada", Toast.LENGTH_LONG).show();
         }
@@ -216,12 +219,12 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     @Override
     public void ResultadoDialogoProfe(String idProfe, String idAula) {
 
-        Profesor profe = new Profesor();
-        profe.setIdProfesor(idProfe);
-        profe.setAula(cole.getAulas().get(idAula));
         if(cole.getProfesorado().containsKey(idProfe)){
             Toast.makeText(ModificarColegio4.this, "Profesor ya existe", Toast.LENGTH_LONG).show();
         }else{
+            Profesor profe = new Profesor();
+            profe.setIdProfesor(idProfe);
+            profe.setAula(cole.getAulas().get(idAula));
             cole.getProfesorado().put(idProfe, profe);
             Toast.makeText(ModificarColegio4.this, "Profesor creado", Toast.LENGTH_LONG).show();
         }

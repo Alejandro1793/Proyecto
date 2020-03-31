@@ -17,7 +17,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +44,8 @@ public class RegistroAdministrador2b extends AppCompatActivity {
         btnAceptarDatos = findViewById(R.id.btnAceptarDatos);
 
         mAuth = FirebaseAuth.getInstance();
+        final FirebaseFirestore database = FirebaseFirestore.getInstance();
+
 
         btnGenerar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +75,7 @@ public class RegistroAdministrador2b extends AppCompatActivity {
                                     Toast.makeText(RegistroAdministrador2b.this, "Usuario creado con éxito.",
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    database.collection("Users").document(user.getUid()).set(new Usuario(txtEmail.getText().toString(), user.getUid(), txtPassGenerada.getText().toString()));
                                     updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
