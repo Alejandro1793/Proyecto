@@ -29,21 +29,21 @@ import java.util.Set;
 public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.ResultadoDialogoAula, Dialogo_profe.ResultadoDialogoProfe {
 
     private static final String TAG = "Error";
-    Button btnGenerarCodigo, btnAceptarCole, btnRegistroAula, btnRegistroProfe, btnAtras;
-    TextView txtCodigoGenerado, txtIdCole;
+    Button  btnAceptarCole, btnRegistroAula, btnRegistroProfe, btnAtras;
+    TextView txtCodigoGenerado;
     HashMap<String, Aula> aulas;
     ArrayList<String> listadoAulas;
     HashMap<String, Profesor> profesorado;
     Context context;
+    Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_colegio);
 
-        btnGenerarCodigo = findViewById(R.id.btnGenerarCodigo);
         txtCodigoGenerado = findViewById(R.id.txtCodigoGenerado);
-        txtIdCole = findViewById(R.id.txtIdCole);
+        txtCodigoGenerado.setText(GeneradorContraseña.getPassword());
         btnAceptarCole = findViewById(R.id.btnAceptarCole);
         btnRegistroAula = findViewById(R.id.btnRegitroAula);
         btnRegistroProfe = findViewById(R.id.btnRegistroProfe);
@@ -55,33 +55,20 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
         profesorado = new HashMap<>();
         context = this;
 
-        btnGenerarCodigo.setOnClickListener(new View.OnClickListener() {
+        DocumentReference docUsuario = database.collection("users").document(mAuth);
+        docUsuario.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View v) {
-                if (comprobarID(txtIdCole.getText().toString())){
-                    //Obtiene la referencia del documento con el ID que ha ingresado el usuario
-                    DocumentReference docRef = database.collection("Colegios").document(txtIdCole.getText().toString());
-                    //Se intenta obtener el documento de la base de datos para saber si ya existe
-                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Toast.makeText(RegistroColegio.this, "Ya existe un colegio con ese ID", Toast.LENGTH_LONG).show();
-                            txtIdCole.setText("");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            btnRegistroAula.setEnabled(true);
-                            txtIdCole.setEnabled(false);
-                            btnGenerarCodigo.setEnabled(false);
-                        }
-                    });
-                } else {
-                    Toast.makeText(RegistroColegio.this, "El ID tiene que tener 8 números", Toast.LENGTH_LONG).show();
-                    txtIdCole.setText("");
-                }
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                usuario = documentSnapshot.toObject(Usuario.class);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(RegistroColegio.this, "Fallo en la autentificación del usuario", Toast.LENGTH_LONG).show();
             }
         });
+
+
 
         btnRegistroAula.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +92,7 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
             @Override
             public void onClick(View v) {
                 //Obtiene la referencia del documento con el ID que ha ingresado el usuario
-                CollectionReference docColegio = database.collection("Users").document(mAuth).collection("Colegio");
+                CollectionReference docColegio = database.collection("users").document(mAuth).collection("Colegio");
                 DocumentReference docAulas = docColegio.document("Aulas");
                 DocumentReference docProfes = docColegio.document("Profesores");
                 //Se carga el colegio creado en la base de datos

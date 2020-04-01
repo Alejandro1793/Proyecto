@@ -1,18 +1,24 @@
 package com.frutosajniahperez.proyecto;
 
+import java.util.HashMap;
+
 public class Usuario {
 
     private String email;
     private String uid;
     private String contraseña;
+    private String idColegio;
+    private Roles roles;
 
     public Usuario() {
     }
 
-    public Usuario(String email, String uid, String contraseña) {
+    public Usuario(String email, String uid, String contraseña, String idColegio) {
         this.email = email;
         this.uid = uid;
         this.contraseña = contraseña;
+        this.idColegio = idColegio;
+        this.roles = new Roles();
     }
 
     public String getEmail() {
@@ -37,5 +43,21 @@ public class Usuario {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public String getIdColegio() {
+        return idColegio;
+    }
+
+    public void setIdColegio(String idColegio) {
+        this.idColegio = idColegio;
+    }
+
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
     }
 }

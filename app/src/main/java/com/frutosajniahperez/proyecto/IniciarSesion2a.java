@@ -85,7 +85,7 @@ public class IniciarSesion2a extends AppCompatActivity {
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(IniciarSesion2a.this, IniciarSesion2.class));
+                startActivity(new Intent(IniciarSesion2a.this, Registro2.class));
                 finish();
             }
         });

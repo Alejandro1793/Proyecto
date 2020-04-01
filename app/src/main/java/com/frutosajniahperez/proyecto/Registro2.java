@@ -8,14 +8,14 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class IniciarSesion2 extends AppCompatActivity {
+public class Registro2 extends AppCompatActivity {
 
     Button btnISProfe, btnISAdmin;
     ImageView btregresar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_iniciar_sesion2);
+        setContentView(R.layout.activity_registro2);
 
         btnISAdmin = findViewById(R.id.btnISAdmin);
         btnISProfe = findViewById(R.id.btnISProfe);
@@ -24,21 +24,21 @@ public class IniciarSesion2 extends AppCompatActivity {
         btnISProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(IniciarSesion2.this, InicioSesionExitoso.class));
+                startActivity(new Intent(Registro2.this, InicioSesionExitoso.class));
             }
         });
 
         btnISAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(IniciarSesion2.this, IniciarSesion2a.class));
+                startActivity(new Intent(Registro2.this, IniciarSesion2a.class));
             }
         });
 
         btregresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(IniciarSesion2.this, Principal.class));
+                startActivity(new Intent(Registro2.this, Principal.class));
             }
         });
 

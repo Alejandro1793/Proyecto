@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IniciarSesion2">
+    tools:context=".Registro2">
 
     <ImageView
         android:id="@+id/btnRegresar"
@@ -29,7 +29,7 @@
         android:layout_height="50dp"
         android:background="@drawable/forma_boton_contraria"
         android:fontFamily="@font/yanone_kaffeesatz"
-        android:text="@string/iniciar_sesion_como_profesor"
+        android:text="@string/registrarse_como_profesor"
         android:textColor="#6680D4"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +44,7 @@
         android:layout_height="50dp"
         android:background="@drawable/forma_boton"
         android:fontFamily="@font/yanone_kaffeesatz"
-        android:text="@string/iniciar_sesion_como_administrador"
+        android:text="@string/registrarse_como_administrador"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
