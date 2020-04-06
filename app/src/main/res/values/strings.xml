@@ -1,18 +1,18 @@
 <resources>
-    <string name="app_name">Proyecto</string>
+    <string name="app_name">Proyecto Biblioteca</string>
     <string name="inicia_sesion">Iniciar Sesión</string>
-    <string name="iniciar_sesion_admin">Iniciar Sesión de administrador</string>
     <string name="registrarse">Registrarse</string>
     <string name="aceptar">Aceptar</string>
     <string name="imagenizq" />
     <string name="generar_contra">Generar contraseña</string>
     <string name="introduce_el_email">Introduce el email</string>
-    <string name="imagenprincipal">ImagenPrincipal</string>
+    <string name="imagenprincipal"></string>
     <string name="registro">Registro</string>
     <string name="introduce_la_contra">Introduce la contraseña</string>
     <string name="tu_contra_es">Tu contraseña es:</string>
-    <string name="registrarse_como_administrador">Registrarse como administrador</string>
-    <string name="registrarse_como_profesor">Registrarse como profesor</string>
+    <string name="registrarse_como_administrador">Registro como administrador</string>
+    <string name="registrarse_como_profesor">Registro como profesor</string>
+    <string name="registrarse_como_alumno">Registro como alumno</string>
     <string name="confirmar_registro">Confirmar Registro</string>
     <string name="apunta_tu_contrase_a_en_un_lugar_seguro">Apunta tu contraseña en un lugar seguro</string>
     <string name="crear_colegio">Crear colegio</string>
@@ -30,5 +30,6 @@
     <string name="introduce_el_nuevo_aula">Introduce el nuevo aula</string>
     <string name="selecciona_el_id_del_profesor">Selecciona el ID del profesor</string>
     <string name="selecciona_el_id_del_aula">Selecciona el Id del Aula</string>
+    <string name="introduce_el_id_del_colegio">Introduce el ID del colegio</string>
 
 </resources>

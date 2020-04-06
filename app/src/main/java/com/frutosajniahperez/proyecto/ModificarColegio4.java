@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +30,13 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     Colegio cole;
     TextView txtIdColeMod, txtPassColeMod;
     ImageView btnRegresar;
-    Button btnAñadirAulaMod, btnAñadirProfeMod, btnEliminarAulaMod, btnEliminarProfeMod, btnBuscarCole, btnModificaProfe;
-    FloatingActionButton btnConfirmarCambios;
+    Button  btnBuscarCole,btnConfirmarCambios;
+    FloatingActionButton fab_eliminarProfe, fab_eliminarAula, fab_modificarProfe, fab_añadirAula,  fab_añadirProfe, fab_opciones;
+
     Context context;
     ArrayList<String> listadoAulas, listadoProfes;
 
+    boolean menuAbierto =  false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +48,14 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
 
         txtIdColeMod = findViewById(R.id.txtIdColeMod);
         txtPassColeMod = findViewById(R.id.txtPassColeMod);
-        btnAñadirAulaMod = findViewById(R.id.btnAñadirAulaMod);
-        btnAñadirProfeMod = findViewById(R.id.btnAñadirProfeMod);
-        btnEliminarAulaMod = findViewById(R.id.btnEliminarAulaMod);
-        btnEliminarProfeMod = findViewById(R.id.btnEliminarProfeMod);
-        btnModificaProfe = findViewById(R.id.btnModificaProfe);
+        fab_añadirAula = findViewById(R.id.fab_añadirAula);
+        fab_añadirProfe = findViewById(R.id.fab_añadirProfe);
+        fab_eliminarAula = findViewById(R.id.fab_eliminarAula);
+        fab_eliminarProfe = findViewById(R.id.fab_EliminarProfe);
+        fab_modificarProfe = findViewById(R.id.fab_ModificarProfe);
+        fab_opciones = findViewById(R.id.fab_opciones);
         btnBuscarCole = findViewById(R.id.btnBuscarCole);
-        btnConfirmarCambios = findViewById(R.id.btnConfimarCambio);
+       // btnConfirmarCambios = findViewById(R.id.btnConfimarCambio);
         btnRegresar = findViewById(R.id.btnRegresar);
 
         btnRegresar.setOnClickListener(new View.OnClickListener() {
@@ -76,11 +80,6 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
                             cole = documentSnapshot.toObject(Colegio.class);
                             if (comprobarCodigo(cole.getCodigoSecreto())) {
                                 if (cole.getCodigoSecreto().equals(txtPassColeMod.getText().toString())) {
-                                    btnAñadirAulaMod.setEnabled(true);
-                                    btnAñadirProfeMod.setEnabled(true);
-                                    btnEliminarAulaMod.setEnabled(true);
-                                    btnEliminarProfeMod.setEnabled(true);
-                                    btnModificaProfe.setEnabled(true);
                                     txtIdColeMod.setEnabled(false);
                                     txtPassColeMod.setEnabled(false);
                                     btnBuscarCole.setEnabled(false);
@@ -104,7 +103,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         });
 
         //Inicia el dialogo para añadir aula
-        btnAñadirAulaMod.setOnClickListener(new View.OnClickListener() {
+        fab_añadirAula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_aula(context, ModificarColegio4.this);
@@ -112,7 +111,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         });
 
         //Carga un arrayadapter de los ID de las aulas y se pasa al dialogo para cargar su spinner
-        btnAñadirProfeMod.setOnClickListener(new View.OnClickListener() {
+        fab_añadirProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_profe(context, ModificarColegio4.this, cargarListados("aulas"));
@@ -120,7 +119,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         });
 
         //Carga un arrayadapter de los ID de las aulas y se pasa al dialogo para cargar su spinner
-        btnEliminarAulaMod.setOnClickListener(new View.OnClickListener() {
+        fab_eliminarAula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_eliminar_aula(context, ModificarColegio4.this, cargarListados("aulas"));
@@ -128,14 +127,14 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         });
 
         //Carga un arrayadapter de los ID de las profesores y se pasa al dialogo para cargar su spinner
-        btnEliminarProfeMod.setOnClickListener(new View.OnClickListener() {
+        fab_eliminarProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_eliminar_profe(context, ModificarColegio4.this, cargarListados("profes"));
             }
         });
 
-        btnModificaProfe.setOnClickListener(new View.OnClickListener() {
+        fab_modificarProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_modificar_profe(context, ModificarColegio4.this, cargarListados("profes"), cargarListados("aulas"));
@@ -161,8 +160,28 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
                 });
             }
         });
+        fab_opciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.fab_opciones:
+                        if(menuAbierto){
+                            cierraMenu();
+                        }else{
+                            abreMenu();
+                        }
+                }
+            }
+        });
 
     }
+    public void abreMenu(){
+        menuAbierto=!menuAbierto;
+    }
+    public void cierraMenu(){
+        menuAbierto=!menuAbierto;
+    }
+
 
     //Comprueba si el ID tiene longitud 8 y son todos números
     public boolean comprobarID(String id){
