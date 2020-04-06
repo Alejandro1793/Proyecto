@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +33,8 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     ImageView btnRegresar;
     Button  btnBuscarCole,btnConfirmarCambios;
     FloatingActionButton fab_eliminarProfe, fab_eliminarAula, fab_modificarProfe, fab_añadirAula,  fab_añadirProfe, fab_opciones;
+    Float translationY = 100f;
+    OvershootInterpolator interpolator = new OvershootInterpolator();
 
     Context context;
     ArrayList<String> listadoAulas, listadoProfes;
@@ -57,6 +60,20 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         btnBuscarCole = findViewById(R.id.btnBuscarCole);
        // btnConfirmarCambios = findViewById(R.id.btnConfimarCambio);
         btnRegresar = findViewById(R.id.btnRegresar);
+
+        //esto es para que esten transparente desde inicio
+        fab_añadirAula.setAlpha(0f);
+        fab_añadirProfe.setAlpha(0f);
+        fab_eliminarAula.setAlpha(0f);
+        fab_eliminarProfe.setAlpha(0f);
+        fab_modificarProfe.setAlpha(0f);
+
+        fab_añadirAula.setTranslationY(translationY);
+        fab_añadirProfe.setTranslationY(translationY);
+        fab_eliminarAula.setTranslationY(translationY);
+        fab_eliminarProfe.setTranslationY(translationY);
+        fab_modificarProfe.setTranslationY(translationY);
+
 
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,9 +194,25 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     }
     public void abreMenu(){
         menuAbierto=!menuAbierto;
+
+        fab_opciones.animate().setInterpolator(interpolator).rotation(45f).setDuration(300).start();
+
+        fab_añadirAula.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab_añadirProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab_eliminarAula.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab_eliminarProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab_modificarProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
     }
     public void cierraMenu(){
         menuAbierto=!menuAbierto;
+
+        fab_opciones.animate().setInterpolator(interpolator).rotation(0f).setDuration(300).start();
+
+        fab_añadirAula.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab_añadirProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab_eliminarAula.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab_eliminarProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab_modificarProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
     }
 
 

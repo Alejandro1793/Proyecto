@@ -96,7 +96,8 @@
             android:layout_height="wrap_content"
             android:text="@string/eliminar_profesor"
             android:layout_gravity="center"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_EliminarProfe"
@@ -119,7 +120,8 @@
             android:layout_height="wrap_content"
             android:text="@string/eliminar_aula"
             android:layout_gravity="center"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_eliminarAula"
@@ -142,7 +144,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/a_adir_aula"
                 android:layout_gravity="center"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_añadirAula"
@@ -165,7 +168,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/a_adir_profesor"
                 android:layout_gravity="center"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_añadirProfe"
@@ -188,7 +192,8 @@
             android:layout_height="wrap_content"
             android:text="@string/modificar_profesor"
             android:layout_gravity="center"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_ModificarProfe"
