@@ -94,10 +94,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/eliminar_profesor"
             android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginEnd="5dp" />
+            android:fontFamily="@font/yanone_kaffeesatz"
+            android:text="@string/eliminar_profesor"
+            android:textSize="18sp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_EliminarProfe"
@@ -118,10 +120,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/eliminar_aula"
             android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginEnd="5dp" />
+            android:fontFamily="@font/yanone_kaffeesatz"
+            android:text="@string/eliminar_aula"
+            android:textSize="18sp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_eliminarAula"
@@ -142,10 +146,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/a_adir_aula"
                 android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp" />
+                android:fontFamily="@font/yanone_kaffeesatz"
+                android:text="@string/a_adir_aula"
+                android:textSize="18sp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_añadirAula"
@@ -166,10 +172,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/a_adir_profesor"
                 android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp" />
+                android:fontFamily="@font/yanone_kaffeesatz"
+                android:text="@string/a_adir_profesor"
+                android:textSize="18sp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_añadirProfe"
@@ -187,13 +195,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/modificar_profesor"
-            android:layout_gravity="center"
-            android:layout_marginRight="5dp"
-            android:layout_marginEnd="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="@font/yanone_kaffeesatz"
+                android:text="@string/modificar_profesor"
+                android:textSize="18sp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_ModificarProfe"
