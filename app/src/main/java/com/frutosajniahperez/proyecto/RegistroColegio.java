@@ -2,6 +2,7 @@ package com.frutosajniahperez.proyecto;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,19 +26,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.ResultadoDialogoAula, Dialogo_profe.ResultadoDialogoProfe {
 
-    private static final String TAG = "Error";
     Button  btnAceptarCole, btnRegistroAula, btnRegistroProfe, btnAtras;
     TextView txtCodigoGenerado;
+    Colegio cole;
     HashMap<String, Aula> aulas;
     ArrayList<String> listadoAulas;
     HashMap<String, Profesor> profesorado;
     Context context;
-    Usuario usuario;
+    Boolean exito = true;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,25 +54,13 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
         btnRegistroProfe = findViewById(R.id.btnRegistroProfe);
         btnAtras = findViewById(R.id.btnAtras);
         final FirebaseFirestore database = FirebaseFirestore.getInstance();
-        final String mAuth = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        final String idCole = getIntent().getStringExtra("idcole");
+
+        cole = new Colegio();
         aulas = new HashMap<>();
         profesorado = new HashMap<>();
         context = this;
-
-        DocumentReference docUsuario = database.collection("users").document(mAuth);
-        docUsuario.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                usuario = documentSnapshot.toObject(Usuario.class);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegistroColegio.this, "Fallo en la autentificación del usuario", Toast.LENGTH_LONG).show();
-            }
-        });
-
 
 
         btnRegistroAula.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +76,7 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
                 //Se obtienen los ID de las aulas y se convierten en un ArrayAdapter que se pasan al dialogo
                 Set<String> idAulas = aulas.keySet();
                 listadoAulas = new ArrayList<>(idAulas);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegistroColegio.this, android.R.layout.simple_spinner_item, listadoAulas);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(RegistroColegio.this, android.R.layout.simple_spinner_item, listadoAulas);
                 new Dialogo_profe(context, RegistroColegio.this, adapter);
             }
         });
@@ -91,57 +84,35 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
         btnAceptarCole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Obtiene la referencia del documento con el ID que ha ingresado el usuario
-                CollectionReference docColegio = database.collection("users").document(mAuth).collection("Colegio");
-                DocumentReference docAulas = docColegio.document("Aulas");
-                DocumentReference docProfes = docColegio.document("Profesores");
-                //Se carga el colegio creado en la base de datos
-                docAulas.set(aulas).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                cole.setIdColegio(idCole);
+                cole.setAulas(aulas);
+                cole.setProfesorado(profesorado);
+
+                final DocumentReference docColegio = database.collection("Colegios").document(idCole);
+                docColegio.set(cole).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(RegistroColegio.this, "Las aulas se han registrado con éxito", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegistroColegio.this, "Colegio registrado correctamente", Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegistroColegio.this, "Fallo en el registro de las aulas", Toast.LENGTH_LONG).show();
-                        Log.w(TAG, "Error adding document", e);
+                        Toast.makeText(RegistroColegio.this, "Fallo en el registro del colegio", Toast.LENGTH_LONG).show();
+                        exito = false;
                     }
                 });
 
-                docProfes.set(profesorado).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(RegistroColegio.this, "Los profesores se han registrado con éxito", Toast.LENGTH_LONG).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegistroColegio.this, "Fallo en el registro de los profesores", Toast.LENGTH_LONG).show();
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
+                if (exito){
+                    Intent intent = new Intent(RegistroColegio.this, ModificarColegio4.class);
+                    intent.putExtra("idcole", idCole);
+                    intent.putExtra("colegio", cole);
+                    startActivity(intent);
+                    finish();
+                }
 
             }
         });
-
-        btnAtras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegistroColegio.this, PantallaInicio3.class));
-            }
-        });
-
-
-    }
-
-    public boolean comprobarID(String codigo){
-
-        if (codigo.length() == 8){
-            return TextUtils.isDigitsOnly(codigo);
-        } else {
-            return false;
-        }
 
     }
 

@@ -7,72 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".ModificarColegio4">
 
-    <ImageView
-        android:id="@+id/btnRegresar"
-        android:layout_width="50dp"
+    <Button
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="340dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:contentDescription="@string/imagenizq"
+        android:background="@drawable/forma_boton_contraria"
+        android:fontFamily="@font/yanone_kaffeesatz"
+        android:text="Cerrar sesión"
+        android:textColor="#6680D4"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025"
-        app:srcCompat="@drawable/izq" />
-
-    <EditText
-        android:id="@+id/txtIdColeMod"
-        android:layout_width="340dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:fontFamily="@font/nova_slim"
-        android:hint="@string/introduce_el_id"
-        android:inputType="number"
-        android:maxLength="8"
-        android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16"
-        android:autofillHints=""
-        android:backgroundTint="#6680d4" tools:targetApi="lollipop"/>
-
-    <EditText
-        android:id="@+id/txtPassColeMod"
-        android:layout_width="340dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:fontFamily="@font/nova_slim"
-        android:hint="@string/introduce_el_c_digo"
-        android:inputType="textPassword"
-        android:maxLength="8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.266"
-        android:autofillHints=""
-        android:backgroundTint="#6680d4"/>
-
-    <Button
-        android:id="@+id/btnBuscarCole"
-        android:layout_width="340dp"
-        android:layout_height="50dp"
-        android:background="@drawable/forma_boton_contraria"
-        android:fontFamily="@font/yanone_kaffeesatz"
-        android:text="@string/buscar_colegio"
-        android:textColor="#6680D4"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.373" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -227,6 +176,27 @@
             app:fabSize="normal"
             app:srcCompat="@drawable/ic_view_headline_black_24dp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtBienvenido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido, el ID de tu colegio es: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
+
+    <TextView
+        android:id="@+id/txtIdColeMod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.135" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

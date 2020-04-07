@@ -100,9 +100,10 @@ public class IniciarSesion2a extends AppCompatActivity {
         updateUI(currentUser);
     }
 
+    //DEPENDERÁ DE LOS ROLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void updateUI(FirebaseUser user){
         if (user != null){
-            Intent intent = new Intent(IniciarSesion2a.this, PantallaInicio3.class);
+            Intent intent = new Intent(IniciarSesion2a.this, ModificarColegio4.class);
             startActivity(intent);
             finish();
         }

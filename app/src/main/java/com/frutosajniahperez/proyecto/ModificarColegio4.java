@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,25 +19,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 public class ModificarColegio4 extends AppCompatActivity implements Dialogo_profe.ResultadoDialogoProfe, Dialogo_aula.ResultadoDialogoAula, Dialogo_eliminar_aula.ResultadoDialogoEliminarAula, Dialogo_eliminar_profe.ResultadoDialogoEliminarProfe, Dialogo_modificar_profe.ResultadoDialogoModificarProfe {
 
-    Colegio cole;
-    TextView txtIdColeMod, txtPassColeMod;
-    ImageView btnRegresar;
-    Button  btnBuscarCole,btnConfirmarCambios;
+    TextView txtIdColeMod;
+    Button  btnCerrarSesion;
     FloatingActionButton fab_eliminarProfe, fab_eliminarAula, fab_modificarProfe, fab_añadirAula,  fab_añadirProfe, fab_opciones;
     Float translationY = 100f;
     OvershootInterpolator interpolator = new OvershootInterpolator();
 
     Context context;
+    Boolean exito = true;
+    HashMap<String, Aula> aulas;
+    HashMap<String, Profesor> profesorado;
     ArrayList<String> listadoAulas, listadoProfes;
+    final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final FirebaseFirestore database = FirebaseFirestore.getInstance();
 
     boolean menuAbierto =  false;
     @Override
@@ -48,18 +55,19 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         context = this;
         listadoAulas = new ArrayList<>();
         listadoProfes = new ArrayList<>();
+        final String idCole = getIntent().getStringExtra("idcole");
+        final Colegio cole = (Colegio) getIntent().getSerializableExtra("colegio");
+
 
         txtIdColeMod = findViewById(R.id.txtIdColeMod);
-        txtPassColeMod = findViewById(R.id.txtPassColeMod);
         fab_añadirAula = findViewById(R.id.fab_añadirAula);
         fab_añadirProfe = findViewById(R.id.fab_añadirProfe);
         fab_eliminarAula = findViewById(R.id.fab_eliminarAula);
         fab_eliminarProfe = findViewById(R.id.fab_EliminarProfe);
         fab_modificarProfe = findViewById(R.id.fab_ModificarProfe);
         fab_opciones = findViewById(R.id.fab_opciones);
-        btnBuscarCole = findViewById(R.id.btnBuscarCole);
-       // btnConfirmarCambios = findViewById(R.id.btnConfimarCambio);
-        btnRegresar = findViewById(R.id.btnRegresar);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+
 
         //esto es para que esten transparente desde inicio
         fab_añadirAula.setAlpha(0f);
@@ -74,50 +82,41 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         fab_eliminarProfe.setTranslationY(translationY);
         fab_modificarProfe.setTranslationY(translationY);
 
+        txtIdColeMod.setText(idCole);
 
-        btnRegresar.setOnClickListener(new View.OnClickListener() {
+        //
+        //NOS FALTA CARGAR EL COLEGIO DESDE LA BASE DE DATOS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //
+
+        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ModificarColegio4.this, PantallaInicio3.class));
-            }
-        });
+                cole.setIdColegio(idCole);
+                cole.setAulas(aulas);
+                cole.setProfesorado(profesorado);
 
-        btnBuscarCole.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                final DocumentReference docColegio = database.collection("Colegios").document(idCole);
+                docColegio.set(cole).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ModificarColegio4.this, "Colegio modificado correctamente", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ModificarColegio4.this, "Fallo en la modificación del colegio", Toast.LENGTH_LONG).show();
+                        exito = false;
+                    }
+                });
 
-                if (comprobarID(txtIdColeMod.getText().toString())) {
-                    //Crea la conexión con Firebase
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    //Creamos la referencia a un documento con el ID recibido del usuario
-                    DocumentReference docRef = db.collection("Colegios").document(txtIdColeMod.getText().toString());
-                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            cole = documentSnapshot.toObject(Colegio.class);
-                            if (comprobarCodigo(cole.getCodigoSecreto())) {
-                                if (cole.getCodigoSecreto().equals(txtPassColeMod.getText().toString())) {
-                                    txtIdColeMod.setEnabled(false);
-                                    txtPassColeMod.setEnabled(false);
-                                    btnBuscarCole.setEnabled(false);
-                                } else {
-                                    Toast.makeText(ModificarColegio4.this, "Código secreto incorrecto", Toast.LENGTH_LONG).show();
-                                }
-                            } else {
-                                Toast.makeText(ModificarColegio4.this, "El código tiene que contener 8 caracteres", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ModificarColegio4.this, "No se encuentra el colegio", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    Toast.makeText(ModificarColegio4.this, "El ID tiene que tener 8 números", Toast.LENGTH_LONG).show();
+                if (exito) {
+                    CerrarSesion.cerrarSesion(mAuth);
+                    startActivity(new Intent(ModificarColegio4.this, Principal.class));
                 }
             }
         });
+
+
 
         //Inicia el dialogo para añadir aula
         fab_añadirAula.setOnClickListener(new View.OnClickListener() {
@@ -158,25 +157,6 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
             }
         });
 
-        btnConfirmarCambios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Se obtiene la referencia a la base de datos y se actualiza con los cambios realizados
-                FirebaseFirestore database = FirebaseFirestore.getInstance();
-                DocumentReference docRef = database.collection("Colegios").document(txtIdColeMod.getText().toString());
-                docRef.set(cole).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(ModificarColegio4.this, "El colegio se ha modificado con éxito", Toast.LENGTH_LONG).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ModificarColegio4.this, "Fallo la modificación del colegio", Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
         fab_opciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,6 +172,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         });
 
     }
+
     public void abreMenu(){
         menuAbierto=!menuAbierto;
 
@@ -215,36 +196,19 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         fab_modificarProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
     }
 
-
-    //Comprueba si el ID tiene longitud 8 y son todos números
-    public boolean comprobarID(String id){
-
-        if (id.length() == 8){
-            return TextUtils.isDigitsOnly(id);
-        } else {
-            return false;
-        }
-    }
-
-
-    public boolean comprobarCodigo(String codigo){
-
-        return (codigo.length() == 8);
-    }
-
     //Crea los listados necesarios para los spinners de los dialogos
     public ArrayAdapter<String> cargarListados(String listado){
 
         ArrayAdapter<String> adapter = null;
 
         if (listado.equals("aulas")) {
-            Set<String> aulas = cole.getAulas().keySet();
-            listadoAulas = new ArrayList<>(aulas);
+            Set<String> setAulas = aulas.keySet();
+            listadoAulas = new ArrayList<>(setAulas);
             adapter = new ArrayAdapter<String>(ModificarColegio4.this, android.R.layout.simple_spinner_item, listadoAulas);
 
 
         } else if (listado.equals("profes")){
-            Set<String> profes = cole.getProfesorado().keySet();
+            Set<String> profes = profesorado.keySet();
             listadoProfes = new ArrayList<>(profes);
             adapter = new ArrayAdapter<>(ModificarColegio4.this, android.R.layout.simple_spinner_item, listadoProfes);
 
@@ -256,12 +220,12 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     @Override
     public void ResultadoDialogoAula(String idAula) {
 
-        if (cole.getAulas().containsKey(idAula)){
+        if (aulas.containsKey(idAula)){
             Toast.makeText(ModificarColegio4.this, "Aula ya existe", Toast.LENGTH_LONG).show();
         } else{
             Aula aula = new Aula();
             aula.setIdAula(idAula);
-            cole.getAulas().put(idAula, aula);
+            aulas.put(idAula, aula);
             Toast.makeText(ModificarColegio4.this, "Aula creada", Toast.LENGTH_LONG).show();
         }
 
@@ -271,13 +235,13 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     @Override
     public void ResultadoDialogoProfe(String idProfe, String idAula) {
 
-        if(cole.getProfesorado().containsKey(idProfe)){
+        if(profesorado.containsKey(idProfe)){
             Toast.makeText(ModificarColegio4.this, "Profesor ya existe", Toast.LENGTH_LONG).show();
         }else{
             Profesor profe = new Profesor();
             profe.setIdProfesor(idProfe);
-            profe.setAula(cole.getAulas().get(idAula));
-            cole.getProfesorado().put(idProfe, profe);
+            profe.setAula(aulas.get(idAula));
+            profesorado.put(idProfe, profe);
             Toast.makeText(ModificarColegio4.this, "Profesor creado", Toast.LENGTH_LONG).show();
         }
 
@@ -287,18 +251,18 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     //Elimina el aula con el ID recibido del dialogo
     @Override
     public void ResultadoDialogoEliminarAula(String idAula) {
-        cole.getAulas().remove(idAula);
+        aulas.remove(idAula);
     }
 
     //Elimina el profesor con el ID recibido del dialogo
     @Override
     public void ResultadoDialogoEliminarProfe(String idProfe) {
-        cole.getProfesorado().remove(idProfe);
+        profesorado.remove(idProfe);
     }
 
     //Modifica el aula del profesor con el ID recibido del dialogo
     @Override
     public void ResultadoDialogoModificarProfe(String idProfe, String idAula) {
-        cole.getProfesorado().get(idProfe).setAula(cole.getAulas().get(idAula));
+        profesorado.get(idProfe).setAula(aulas.get(idAula));
     }
 }

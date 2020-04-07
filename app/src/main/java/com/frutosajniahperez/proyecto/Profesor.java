@@ -1,6 +1,8 @@
 package com.frutosajniahperez.proyecto;
 
-public class Profesor {
+import java.io.Serializable;
+
+public class Profesor implements Serializable {
 
     private String idProfesor;
     private Aula aula;
