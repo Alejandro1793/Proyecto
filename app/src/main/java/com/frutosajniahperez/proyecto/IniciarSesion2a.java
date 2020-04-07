@@ -30,7 +30,7 @@ public class IniciarSesion2a extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_iniciar_sesion_admin2a);
+        setContentView(R.layout.activity_iniciar_sesion_2a);
 
         txtCorreo = findViewById(R.id.txtCorreo);
         txtContraseña = findViewById(R.id.txtContrasenia);

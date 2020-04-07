@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +31,15 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     Colegio cole;
     TextView txtIdColeMod, txtPassColeMod;
     ImageView btnRegresar;
-    Button btnAñadirAulaMod, btnAñadirProfeMod, btnEliminarAulaMod, btnEliminarProfeMod, btnBuscarCole, btnModificaProfe;
-    FloatingActionButton btnConfirmarCambios;
+    Button  btnBuscarCole,btnConfirmarCambios;
+    FloatingActionButton fab_eliminarProfe, fab_eliminarAula, fab_modificarProfe, fab_añadirAula,  fab_añadirProfe, fab_opciones;
+    Float translationY = 100f;
+    OvershootInterpolator interpolator = new OvershootInterpolator();
+
     Context context;
     ArrayList<String> listadoAulas, listadoProfes;
 
+    boolean menuAbierto =  false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +51,29 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
 
         txtIdColeMod = findViewById(R.id.txtIdColeMod);
         txtPassColeMod = findViewById(R.id.txtPassColeMod);
-        btnAñadirAulaMod = findViewById(R.id.btnAñadirAulaMod);
-        btnAñadirProfeMod = findViewById(R.id.btnAñadirProfeMod);
-        btnEliminarAulaMod = findViewById(R.id.btnEliminarAulaMod);
-        btnEliminarProfeMod = findViewById(R.id.btnEliminarProfeMod);
-        btnModificaProfe = findViewById(R.id.btnModificaProfe);
+        fab_añadirAula = findViewById(R.id.fab_añadirAula);
+        fab_añadirProfe = findViewById(R.id.fab_añadirProfe);
+        fab_eliminarAula = findViewById(R.id.fab_eliminarAula);
+        fab_eliminarProfe = findViewById(R.id.fab_EliminarProfe);
+        fab_modificarProfe = findViewById(R.id.fab_ModificarProfe);
+        fab_opciones = findViewById(R.id.fab_opciones);
         btnBuscarCole = findViewById(R.id.btnBuscarCole);
-        btnConfirmarCambios = findViewById(R.id.btnConfimarCambio);
+       // btnConfirmarCambios = findViewById(R.id.btnConfimarCambio);
         btnRegresar = findViewById(R.id.btnRegresar);
+
+        //esto es para que esten transparente desde inicio
+        fab_añadirAula.setAlpha(0f);
+        fab_añadirProfe.setAlpha(0f);
+        fab_eliminarAula.setAlpha(0f);
+        fab_eliminarProfe.setAlpha(0f);
+        fab_modificarProfe.setAlpha(0f);
+
+        fab_añadirAula.setTranslationY(translationY);
+        fab_añadirProfe.setTranslationY(translationY);
+        fab_eliminarAula.setTranslationY(translationY);
+        fab_eliminarProfe.setTranslationY(translationY);
+        fab_modificarProfe.setTranslationY(translationY);
+
 
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,11 +97,6 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
                             cole = documentSnapshot.toObject(Colegio.class);
                             if (comprobarCodigo(cole.getCodigoSecreto())) {
                                 if (cole.getCodigoSecreto().equals(txtPassColeMod.getText().toString())) {
-                                    btnAñadirAulaMod.setEnabled(true);
-                                    btnAñadirProfeMod.setEnabled(true);
-                                    btnEliminarAulaMod.setEnabled(true);
-                                    btnEliminarProfeMod.setEnabled(true);
-                                    btnModificaProfe.setEnabled(true);
                                     txtIdColeMod.setEnabled(false);
                                     txtPassColeMod.setEnabled(false);
                                     btnBuscarCole.setEnabled(false);
@@ -104,7 +120,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         });
 
         //Inicia el dialogo para añadir aula
-        btnAñadirAulaMod.setOnClickListener(new View.OnClickListener() {
+        fab_añadirAula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_aula(context, ModificarColegio4.this);
@@ -112,7 +128,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         });
 
         //Carga un arrayadapter de los ID de las aulas y se pasa al dialogo para cargar su spinner
-        btnAñadirProfeMod.setOnClickListener(new View.OnClickListener() {
+        fab_añadirProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_profe(context, ModificarColegio4.this, cargarListados("aulas"));
@@ -120,7 +136,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         });
 
         //Carga un arrayadapter de los ID de las aulas y se pasa al dialogo para cargar su spinner
-        btnEliminarAulaMod.setOnClickListener(new View.OnClickListener() {
+        fab_eliminarAula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_eliminar_aula(context, ModificarColegio4.this, cargarListados("aulas"));
@@ -128,14 +144,14 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         });
 
         //Carga un arrayadapter de los ID de las profesores y se pasa al dialogo para cargar su spinner
-        btnEliminarProfeMod.setOnClickListener(new View.OnClickListener() {
+        fab_eliminarProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_eliminar_profe(context, ModificarColegio4.this, cargarListados("profes"));
             }
         });
 
-        btnModificaProfe.setOnClickListener(new View.OnClickListener() {
+        fab_modificarProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Dialogo_modificar_profe(context, ModificarColegio4.this, cargarListados("profes"), cargarListados("aulas"));
@@ -161,8 +177,44 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
                 });
             }
         });
+        fab_opciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()){
+                    case R.id.fab_opciones:
+                        if(menuAbierto){
+                            cierraMenu();
+                        }else{
+                            abreMenu();
+                        }
+                }
+            }
+        });
 
     }
+    public void abreMenu(){
+        menuAbierto=!menuAbierto;
+
+        fab_opciones.animate().setInterpolator(interpolator).rotation(45f).setDuration(300).start();
+
+        fab_añadirAula.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab_añadirProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab_eliminarAula.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab_eliminarProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab_modificarProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+    }
+    public void cierraMenu(){
+        menuAbierto=!menuAbierto;
+
+        fab_opciones.animate().setInterpolator(interpolator).rotation(0f).setDuration(300).start();
+
+        fab_añadirAula.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab_añadirProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab_eliminarAula.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab_eliminarProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab_modificarProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+    }
+
 
     //Comprueba si el ID tiene longitud 8 y son todos números
     public boolean comprobarID(String id){

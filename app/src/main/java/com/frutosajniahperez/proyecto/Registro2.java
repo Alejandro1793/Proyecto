@@ -10,28 +10,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Registro2 extends AppCompatActivity {
 
-    Button btnISProfe, btnISAdmin;
+    Button btnRegistroProfe, btnRegistroAdmin;
     ImageView btregresar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro2);
 
-        btnISAdmin = findViewById(R.id.btnISAdmin);
-        btnISProfe = findViewById(R.id.btnISProfe);
+        btnRegistroAdmin = findViewById(R.id.btnISAdmin);
+        btnRegistroProfe = findViewById(R.id.btnISProfe);
         btregresar = findViewById(R.id.btnRegresar);
 
-        btnISProfe.setOnClickListener(new View.OnClickListener() {
+        btnRegistroProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Registro2.this, InicioSesionExitoso.class));
             }
         });
 
-        btnISAdmin.setOnClickListener(new View.OnClickListener() {
+        btnRegistroAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Registro2.this, IniciarSesion2a.class));
+                startActivity(new Intent(Registro2.this, RegistroAdministrador2b.class));
             }
         });
 
