@@ -1,22 +1,19 @@
 package com.frutosajniahperez.proyecto;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
-public class Colegio {
+public class Colegio implements Serializable {
 
     private String idColegio;
-    private String codigoSecreto;
-    private HashMap<String, Alumno> alumnado;
     private HashMap<String, Profesor> profesorado;
     private HashMap<String, Aula> aulas;
 
     public Colegio() {}
 
-    public Colegio(String idColegio, String codigoSecreto,HashMap<String, Alumno> alumnado, HashMap<String, Profesor> profesorado, HashMap<String, Aula> aulas) {
+    public Colegio(String idColegio, HashMap<String, Profesor> profesorado, HashMap<String, Aula> aulas) {
         this.idColegio = idColegio;
-        this.codigoSecreto = codigoSecreto;
-        this.alumnado = alumnado;
         this.profesorado = profesorado;
         this.aulas = aulas;
     }
@@ -29,13 +26,6 @@ public class Colegio {
         this.idColegio = idColegio;
     }
 
-    public HashMap<String, Alumno> getAlumnado() {
-        return alumnado;
-    }
-
-    public void setAlumnado(HashMap<String, Alumno> alumnado) {
-        this.alumnado = alumnado;
-    }
 
     public HashMap<String, Profesor> getProfesorado() {
         return profesorado;
@@ -51,13 +41,5 @@ public class Colegio {
 
     public void setAulas(HashMap<String, Aula> aulas) {
         this.aulas = aulas;
-    }
-
-    public String getCodigoSecreto() {
-        return codigoSecreto;
-    }
-
-    public void setCodigoSecreto(String codigoSecreto) {
-        this.codigoSecreto = codigoSecreto;
     }
 }

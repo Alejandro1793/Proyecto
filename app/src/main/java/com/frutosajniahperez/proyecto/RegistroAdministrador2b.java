@@ -34,6 +34,8 @@ public class RegistroAdministrador2b extends AppCompatActivity {
     TextView txtPassGenerada, txtEmail, txtRegistroCole;
     FirebaseAuth mAuth;
     ImageView btnRegresar;
+    Colegio cole;
+    Boolean existe = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,48 +73,45 @@ public class RegistroAdministrador2b extends AppCompatActivity {
             public void onClick(View v) {
                 //
                 if (comprobarID(txtRegistroCole.getText().toString())){
-                    //Obtiene la referencia del documento con el ID que ha ingresado el usuario
-                    DocumentReference docRef = database.collection("Colegios").document(txtRegistroCole.getText().toString());
-                    //Se intenta obtener el documento de la base de datos para saber si ya existe
-                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    final DocumentReference docColegio = database.collection("Colegios").document(txtRegistroCole.getText().toString());
+                    docColegio.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Toast.makeText(RegistroAdministrador2b.this, "Ya existe un colegio con ese ID", Toast.LENGTH_LONG).show();
-                            txtRegistroCole.setText("");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            mAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPassGenerada.getText().toString())
-                                    .addOnCompleteListener(RegistroAdministrador2b.this, new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (task.isSuccessful()) {
-                                                // Sign in success, update UI with the signed-in user's information
-                                                Log.d(TAG, "createUserWithEmail:success");
-                                                Toast.makeText(RegistroAdministrador2b.this, "Usuario creado con éxito.",
-                                                        Toast.LENGTH_SHORT).show();
-                                                FirebaseUser user = mAuth.getCurrentUser();
-                                                Usuario usuario = new Usuario(txtEmail.getText().toString(), user.getUid(), txtPassGenerada.getText().toString(), txtRegistroCole.getText().toString());
-                                                usuario.getRoles().setAdmin(true);
-                                                database.collection("users").document(user.getUid()).set(usuario);
-                                                updateUI(user);
-                                            } else {
-                                                // If sign in fails, display a message to the user.
-                                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                                Toast.makeText(RegistroAdministrador2b.this, "Authentication failed.",
-                                                        Toast.LENGTH_SHORT).show();
-                                                updateUI(null);
-                                            }
-                                        }
-                                    });
+                            cole = documentSnapshot.toObject(Colegio.class);
+                            if (cole != null){
+                                existe = true;
+                            }
                         }
                     });
+                    if (!existe){
+                        mAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPassGenerada.getText().toString())
+                            .addOnCompleteListener(RegistroAdministrador2b.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Registro de usuario realizado con éxito
+                                        Toast.makeText(RegistroAdministrador2b.this, "Usuario creado con éxito.",
+                                                Toast.LENGTH_SHORT).show();
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Usuario usuario = new Usuario(txtEmail.getText().toString(), user.getUid(), txtPassGenerada.getText().toString(), txtRegistroCole.getText().toString());
+                                        usuario.getRoles().setAdmin(true);
+                                        //PASAR EL USUARIO A LA ACTIVITY SIGUIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                        database.collection("users").document(user.getUid()).set(usuario);
+                                        updateUI(user);
+                                    } else {
+                                        Toast.makeText(RegistroAdministrador2b.this, "Error al registrar el usuario",
+                                                Toast.LENGTH_SHORT).show();
+                                        updateUI(null);
+                                    }
+                                }
+                            });
+                    } else {
+                        Toast.makeText(RegistroAdministrador2b.this, "Fallo en el registro. El colegio ya existe", Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(RegistroAdministrador2b.this, "El ID tiene que tener 8 números", Toast.LENGTH_LONG).show();
                     txtRegistroCole.setText("");
                 }
-                //
 
             }
         });
@@ -140,7 +139,8 @@ public class RegistroAdministrador2b extends AppCompatActivity {
 
     public void updateUI(FirebaseUser user){
         if (user != null){
-            Intent intent = new Intent(RegistroAdministrador2b.this, PantallaInicio3.class);
+            Intent intent = new Intent(RegistroAdministrador2b.this, RegistroColegio.class);
+            intent.putExtra("idcole", txtRegistroCole.getText().toString());
             startActivity(intent);
             finish();
         }

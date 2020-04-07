@@ -13,7 +13,6 @@
         <activity android:name=".Dialogo_eliminar_profe" />
         <activity android:name=".Dialogo_eliminar_aula" />
         <activity android:name=".ModificarColegio4" />
-        <activity android:name=".PantallaInicio3" />
         <activity android:name=".RegistroColegio" />
         <activity android:name=".RegistroAdministrador2b" />
         <activity android:name=".InicioSesionExitoso" />

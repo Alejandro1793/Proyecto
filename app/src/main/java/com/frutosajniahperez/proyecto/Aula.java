@@ -1,8 +1,9 @@
 package com.frutosajniahperez.proyecto;
 
+import java.io.Serializable;
 import java.util.Dictionary;
 
-public class Aula {
+public class Aula implements Serializable {
 
     private String idAula;
     private Dictionary<String, Libro> libreria;
