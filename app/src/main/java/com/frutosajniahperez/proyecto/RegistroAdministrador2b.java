@@ -89,7 +89,7 @@ public class RegistroAdministrador2b extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        // Registro de usuario realizado con éxito
+                                        // Registro del usuario realizado con éxito
                                         Toast.makeText(RegistroAdministrador2b.this, "Usuario creado con éxito.",
                                                 Toast.LENGTH_SHORT).show();
                                         FirebaseUser user = mAuth.getCurrentUser();
