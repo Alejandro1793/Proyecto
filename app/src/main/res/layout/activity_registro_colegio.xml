@@ -6,14 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".RegistroAdministrador2b">
 
+    <ImageView
+        android:id="@+id/btnAtras"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/imagenizq"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/izq" />
+
     <TextView
         android:id="@+id/label2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginLeft="156dp"
-        android:layout_marginBottom="664dp"
-        android:text="Tu código es: "
+        android:layout_marginStart="144dp"
+        android:layout_marginLeft="144dp"
+        android:layout_marginBottom="672dp"
+        android:fontFamily="@font/nova_slim"
+        android:text="Tu colegio es:"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -24,54 +39,56 @@
         android:layout_marginStart="80dp"
         android:layout_marginLeft="80dp"
         android:layout_marginBottom="552dp"
+        android:fontFamily="@font/nova_slim"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnAceptarCole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="204dp"
-        android:layout_marginLeft="204dp"
+        android:layout_width="150sp"
+        android:layout_height="50sp"
+        android:layout_marginStart="240dp"
+        android:layout_marginLeft="240dp"
         android:layout_marginBottom="48dp"
+        android:background="@drawable/forma_boton_contraria"
         android:enabled="false"
-        android:text="Aceptar colegio"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnAtras"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginBottom="48dp"
-        android:text="Atrás"
+        android:fontFamily="@font/yanone_kaffeesatz"
+        android:text="Aceptar "
+        android:textColor="#6680D4"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnRegistroProfe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="204dp"
-        android:layout_marginLeft="204dp"
-        android:layout_marginBottom="252dp"
+        android:layout_width="250sp"
+        android:layout_height="50sp"
+        android:layout_marginStart="88dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginBottom="392dp"
+        android:background="@drawable/forma_boton"
         android:enabled="false"
+        android:fontFamily="@font/yanone_kaffeesatz"
         android:text="Registrar profesor"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnRegitroAula"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginBottom="252dp"
+        android:layout_width="250sp"
+        android:layout_height="50sp"
+        android:layout_marginStart="88dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginBottom="468dp"
+        android:background="@drawable/forma_boton_contraria"
+        android:fontFamily="@font/yanone_kaffeesatz"
         android:text="Registrar aula"
+        android:textColor="#6680D4"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
