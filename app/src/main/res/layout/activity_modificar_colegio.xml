@@ -7,21 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".ModificarColegio4">
 
-    <Button
-        android:id="@+id/btnCerrarSesion"
-        android:layout_width="340dp"
-        android:layout_height="50dp"
-        android:background="@drawable/forma_boton_contraria"
-        android:fontFamily="@font/yanone_kaffeesatz"
-        android:text="Cerrar sesión"
-        android:textColor="#6680D4"
-        android:textSize="24sp"
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginLeft="96dp"
+        android:layout_marginBottom="528dp"
+        android:fontFamily="@font/nova_slim"
+        android:text="@string/tu_colegio_es"
+        android:textColor="#6680d4"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -41,6 +39,7 @@
         android:layout_gravity="bottom|end">
 
         <TextView
+            android:id="@+id/lbEliminarProfe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -67,6 +66,7 @@
         android:layout_gravity="bottom|end">
 
         <TextView
+            android:id="@+id/lbEliminarAula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -93,6 +93,7 @@
             android:layout_gravity="bottom|end">
 
             <TextView
+                android:id="@+id/lbAnadirAula"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -119,6 +120,7 @@
             android:layout_gravity="bottom|end">
 
             <TextView
+                android:id="@+id/lbAnadirProfe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -145,16 +147,18 @@
         android:layout_gravity="bottom|end">
 
             <TextView
+                android:id="@+id/lbModificarProfe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/yanone_kaffeesatz"
                 android:text="@string/modificar_profesor"
                 android:textSize="18sp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_ModificarProfe"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
@@ -178,25 +182,32 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/txtBienvenido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenido, el ID de tu colegio es: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
-
-    <TextView
         android:id="@+id/txtIdColeMod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:fontFamily="@font/nova_slim"
+        android:textColor="#6680d4"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.621"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintVertical_bias="0.276" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:tint="@color/white"
+        app:backgroundTint="#6680d4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_close_black_24dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

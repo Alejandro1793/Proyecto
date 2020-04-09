@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,22 +16,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.ResultadoDialogoAula, Dialogo_profe.ResultadoDialogoProfe {
 
-    Button  btnAceptarCole, btnRegistroAula, btnRegistroProfe, btnAtras;
-    TextView txtCodigoGenerado;
+    Button  btnAceptarCole, btnRegistroAula, btnRegistroProfe;
+    ImageView  btnAtras;
+
     Colegio cole;
     HashMap<String, Aula> aulas;
     ArrayList<String> listadoAulas;
@@ -47,8 +41,7 @@ public class RegistroColegio extends AppCompatActivity implements Dialogo_aula.R
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_colegio);
 
-        txtCodigoGenerado = findViewById(R.id.txtCodigoGenerado);
-        txtCodigoGenerado.setText(GeneradorContraseña.getPassword());
+
         btnAceptarCole = findViewById(R.id.btnAceptarCole);
         btnRegistroAula = findViewById(R.id.btnRegitroAula);
         btnRegistroProfe = findViewById(R.id.btnRegistroProfe);

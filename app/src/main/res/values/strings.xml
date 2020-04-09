@@ -31,5 +31,8 @@
     <string name="selecciona_el_id_del_profesor">Selecciona el ID del profesor</string>
     <string name="selecciona_el_id_del_aula">Selecciona el Id del Aula</string>
     <string name="introduce_el_id_del_colegio">Introduce el ID del colegio</string>
+    <string name="tu_colegio_es">Tu colegio es:</string>
+    <string name="registrar_aula">Registrar aula</string>
+    <string name="registrar_profesor">Registrar profesor</string>
 
 </resources>

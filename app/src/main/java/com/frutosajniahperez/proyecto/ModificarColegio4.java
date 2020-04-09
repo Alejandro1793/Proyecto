@@ -31,9 +31,8 @@ import java.util.Set;
 
 public class ModificarColegio4 extends AppCompatActivity implements Dialogo_profe.ResultadoDialogoProfe, Dialogo_aula.ResultadoDialogoAula, Dialogo_eliminar_aula.ResultadoDialogoEliminarAula, Dialogo_eliminar_profe.ResultadoDialogoEliminarProfe, Dialogo_modificar_profe.ResultadoDialogoModificarProfe {
 
-    TextView txtIdColeMod;
-    Button  btnCerrarSesion;
-    FloatingActionButton fab_eliminarProfe, fab_eliminarAula, fab_modificarProfe, fab_añadirAula,  fab_añadirProfe, fab_opciones;
+    TextView txtIdColeMod, lbEliminarProfe,lbEliminarAula,lbAnadirAula,lbAnadirProfe,lbModificarProfe;
+    FloatingActionButton fab_eliminarProfe, fab_eliminarAula, fab_modificarProfe, fab_añadirAula,  fab_añadirProfe, fab_opciones,btnCerrarSesion;
     Float translationY = 100f;
     OvershootInterpolator interpolator = new OvershootInterpolator();
 
@@ -67,20 +66,36 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         fab_modificarProfe = findViewById(R.id.fab_ModificarProfe);
         fab_opciones = findViewById(R.id.fab_opciones);
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+        lbEliminarProfe = findViewById((R.id.lbEliminarProfe));
+        lbEliminarAula = findViewById(R.id.lbEliminarAula);
+        lbAnadirProfe = findViewById(R.id.lbAnadirProfe);
+        lbAnadirAula = findViewById(R.id.lbAnadirAula);
+        lbModificarProfe = findViewById(R.id.lbModificarProfe);
 
 
-        //esto es para que esten transparente desde inicio
+        //El setAlpha y el setTranslation es para la animación del boton flotante
         fab_añadirAula.setAlpha(0f);
         fab_añadirProfe.setAlpha(0f);
         fab_eliminarAula.setAlpha(0f);
         fab_eliminarProfe.setAlpha(0f);
         fab_modificarProfe.setAlpha(0f);
+        lbEliminarProfe.setAlpha(0f);
+        lbEliminarAula.setAlpha(0f);
+        lbAnadirProfe.setAlpha(0f);
+        lbAnadirAula.setAlpha(0f);
+        lbModificarProfe.setAlpha(0f);
 
         fab_añadirAula.setTranslationY(translationY);
         fab_añadirProfe.setTranslationY(translationY);
         fab_eliminarAula.setTranslationY(translationY);
         fab_eliminarProfe.setTranslationY(translationY);
         fab_modificarProfe.setTranslationY(translationY);
+        lbEliminarProfe.setTranslationY(translationY);
+        lbEliminarAula.setTranslationY(translationY);
+        lbAnadirProfe.setTranslationY(translationY);
+        lbAnadirAula.setTranslationY(translationY);
+        lbModificarProfe.setTranslationY(translationY);
+
 
         txtIdColeMod.setText(idCole);
 
@@ -157,6 +172,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
             }
         });
 
+        //Esto es para que cuando se pulse el boton flotante muestre o no el menu desplegado
         fab_opciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,6 +199,13 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         fab_eliminarAula.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         fab_eliminarProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         fab_modificarProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+
+        lbEliminarProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        lbEliminarAula.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        lbAnadirProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        lbAnadirAula.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        lbModificarProfe.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+
     }
     public void cierraMenu(){
         menuAbierto=!menuAbierto;
@@ -194,6 +217,12 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         fab_eliminarAula.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
         fab_eliminarProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
         fab_modificarProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+
+        lbEliminarProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        lbEliminarAula.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        lbAnadirProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        lbAnadirAula.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        lbModificarProfe.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
     }
 
     //Crea los listados necesarios para los spinners de los dialogos
