@@ -26,12 +26,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 public class IniciarSesion2a extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private FirebaseFirestore database;
     private final static String TAG = "Estado";
     TextView txtCorreo, txtContraseña;
     Button btnIniciarSesion;
@@ -51,20 +51,6 @@ public class IniciarSesion2a extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        final DocumentReference docUsuario = database.collection("users").document(uid);
-        docUsuario.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                usuario = documentSnapshot.toObject(Usuario.class);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(IniciarSesion2a.this, "Fallo", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
         //Iniciar sesion
         btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +69,8 @@ public class IniciarSesion2a extends AppCompatActivity {
                     return;
                 }
 
+
+
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(IniciarSesion2a.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -93,6 +81,7 @@ public class IniciarSesion2a extends AppCompatActivity {
                                     Toast.makeText(IniciarSesion2a.this, "Sesión Iniciada",
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
+
                                     updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -120,13 +109,29 @@ public class IniciarSesion2a extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        //FirebaseUser currentUser = mAuth.getCurrentUser();
+        mAuth.signOut();
+        //updateUI(currentUser);
     }
 
     //DEPENDERÁ DE LOS ROLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //PARA DEPENDER DE LOS ROLES PRIMERO TIENE QUE FUNCIONAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void updateUI(FirebaseUser user){
         if (user != null){
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            database = FirebaseFirestore.getInstance();
+            DocumentReference docUsuario = database.collection("users").document(uid);
+            docUsuario.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    usuario = documentSnapshot.toObject(Usuario.class);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(IniciarSesion2a.this, "Fallo", Toast.LENGTH_LONG).show();
+                }
+            });
             Intent intent = new Intent(IniciarSesion2a.this, ModificarColegio4.class);
             intent.putExtra("idcole", usuario.getIdColegio());
             startActivity(intent);

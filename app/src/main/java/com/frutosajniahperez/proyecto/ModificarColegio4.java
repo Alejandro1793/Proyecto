@@ -16,8 +16,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -41,9 +43,8 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     HashMap<String, Aula> aulas;
     HashMap<String, Profesor> profesorado;
     ArrayList<String> listadoAulas, listadoProfes;
-    final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    final FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+
     Colegio cole;
 
     boolean menuAbierto =  false;
@@ -55,14 +56,25 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         context = this;
         listadoAulas = new ArrayList<>();
         listadoProfes = new ArrayList<>();
+
+        final FirebaseFirestore database = FirebaseFirestore.getInstance();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final String idCole = getIntent().getStringExtra("idcole");
 
         if (getIntent().getSerializableExtra("colegio") == null){
-            DocumentReference docColegio = database.collection("Colegios").document(idCole);
-            docColegio.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            DocumentReference docColegio = database.collection("Colegios").document("77777777"); //CAMBIAR A IDCOLE
+            docColegio.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    cole = documentSnapshot.toObject(Colegio.class);
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot documento = task.getResult();
+                        if (documento.exists()) {
+                            cole = documento.toObject(Colegio.class);
+                        } else {
+                            cole = new Colegio();
+                        }
+                    }
                 }
             });
         } else {
@@ -125,7 +137,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
                 cole.setAulas(aulas);
                 cole.setProfesorado(profesorado);
 
-                final DocumentReference docColegio = database.collection("Colegios").document(idCole);
+                DocumentReference docColegio = database.collection("Colegios").document(idCole);
                 docColegio.set(cole).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
