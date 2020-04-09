@@ -13,19 +13,30 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class IniciarSesion2a extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    final FirebaseFirestore database = FirebaseFirestore.getInstance();
+    private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private final static String TAG = "Estado";
     TextView txtCorreo, txtContraseña;
     Button btnIniciarSesion;
     ImageView btnRegresar;
+    Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +49,21 @@ public class IniciarSesion2a extends AppCompatActivity {
         btnIniciarSesion = findViewById(R.id.btnInicioSesion);
         btnRegresar = findViewById(R.id.btnRegresar);
 
-
         mAuth = FirebaseAuth.getInstance();
+
+        final DocumentReference docUsuario = database.collection("users").document(uid);
+        docUsuario.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                usuario = documentSnapshot.toObject(Usuario.class);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(IniciarSesion2a.this, "Fallo", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         //Iniciar sesion
         btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +128,7 @@ public class IniciarSesion2a extends AppCompatActivity {
     public void updateUI(FirebaseUser user){
         if (user != null){
             Intent intent = new Intent(IniciarSesion2a.this, ModificarColegio4.class);
+            intent.putExtra("idcole", usuario.getIdColegio());
             startActivity(intent);
             finish();
         }

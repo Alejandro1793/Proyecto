@@ -44,6 +44,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
     final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final FirebaseFirestore database = FirebaseFirestore.getInstance();
+    Colegio cole;
 
     boolean menuAbierto =  false;
     @Override
@@ -55,7 +56,21 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         listadoAulas = new ArrayList<>();
         listadoProfes = new ArrayList<>();
         final String idCole = getIntent().getStringExtra("idcole");
-        final Colegio cole = (Colegio) getIntent().getSerializableExtra("colegio");
+
+        if (getIntent().getSerializableExtra("colegio") == null){
+            DocumentReference docColegio = database.collection("Colegios").document(idCole);
+            docColegio.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    cole = documentSnapshot.toObject(Colegio.class);
+                }
+            });
+        } else {
+            cole = (Colegio) getIntent().getSerializableExtra("colegio");
+        }
+        aulas = cole.getAulas();
+        profesorado = cole.getProfesorado();
+
 
 
         txtIdColeMod = findViewById(R.id.txtIdColeMod);

@@ -1,6 +1,8 @@
 package com.frutosajniahperez.proyecto;
 
-public class Roles {
+import java.io.Serializable;
+
+public class Roles implements Serializable {
 
     private boolean admin;
     private boolean profe;

@@ -1,8 +1,9 @@
 package com.frutosajniahperez.proyecto;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private String email;
     private String uid;
