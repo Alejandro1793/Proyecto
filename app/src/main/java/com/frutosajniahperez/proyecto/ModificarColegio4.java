@@ -60,10 +60,10 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         final FirebaseFirestore database = FirebaseFirestore.getInstance();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        final String idCole = getIntent().getStringExtra("idcole");
+        final Usuario usuario =(Usuario) getIntent().getSerializableExtra("user");
 
         if (getIntent().getSerializableExtra("colegio") == null){
-            DocumentReference docColegio = database.collection("Colegios").document("77777777"); //CAMBIAR A IDCOLE
+            DocumentReference docColegio = database.collection("Colegios").document(uid);
             docColegio.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -124,7 +124,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         lbModificarProfe.setTranslationY(translationY);
 
 
-        txtIdColeMod.setText(idCole);
+        txtIdColeMod.setText(usuario.getIdColegio());
 
         //
         //NOS FALTA CARGAR EL COLEGIO DESDE LA BASE DE DATOS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -133,11 +133,11 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cole.setIdColegio(idCole);
+                cole.setIdColegio(usuario.getIdColegio());
                 cole.setAulas(aulas);
                 cole.setProfesorado(profesorado);
 
-                DocumentReference docColegio = database.collection("Colegios").document(idCole);
+                DocumentReference docColegio = database.collection("Colegios").document(usuario.getIdColegio());
                 docColegio.set(cole).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -203,13 +203,12 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         fab_opciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch(v.getId()){
-                    case R.id.fab_opciones:
-                        if(menuAbierto){
-                            cierraMenu();
-                        }else{
-                            abreMenu();
-                        }
+                if (v.getId() == R.id.fab_opciones) {
+                    if (menuAbierto) {
+                        cierraMenu();
+                    } else {
+                        abreMenu();
+                    }
                 }
             }
         });
@@ -260,7 +259,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         if (listado.equals("aulas")) {
             Set<String> setAulas = aulas.keySet();
             listadoAulas = new ArrayList<>(setAulas);
-            adapter = new ArrayAdapter<String>(ModificarColegio4.this, android.R.layout.simple_spinner_item, listadoAulas);
+            adapter = new ArrayAdapter<>(ModificarColegio4.this, android.R.layout.simple_spinner_item, listadoAulas);
 
 
         } else if (listado.equals("profes")){

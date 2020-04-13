@@ -6,11 +6,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCanceledListener;
@@ -23,7 +25,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
@@ -33,15 +38,18 @@ public class IniciarSesion2a extends AppCompatActivity {
     private FirebaseAuth mAuth;
     FirebaseFirestore database;
     private final static String TAG = "Estado";
-    TextView txtCorreo, txtContraseña;
+    EditText txtCorreo, txtContraseña;
     Button btnIniciarSesion;
     ImageView btnRegresar;
     Usuario usuario;
+    DocumentReference docUsuario;
+    String uid ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion_2a);
+
 
         txtCorreo = findViewById(R.id.txtCorreo);
         txtContraseña = findViewById(R.id.txtContrasenia);
@@ -54,7 +62,7 @@ public class IniciarSesion2a extends AppCompatActivity {
         //Iniciar sesion
         btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 String email, password;
                 email = txtCorreo.getText().toString();
                 password = txtContraseña.getText().toString();
@@ -81,7 +89,11 @@ public class IniciarSesion2a extends AppCompatActivity {
                                     Toast.makeText(IniciarSesion2a.this, "Sesión Iniciada",
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    uid = FirebaseAuth.getInstance().getUid();
+                                    database = FirebaseFirestore.getInstance();
+                                    docUsuario = database.collection("users").document(uid);
 
+                                    cargarDatos(v);
                                     updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -110,18 +122,44 @@ public class IniciarSesion2a extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         //FirebaseUser currentUser = mAuth.getCurrentUser();
-        mAuth.signOut();
+        //mAuth.signOut();
         //updateUI(currentUser);
+    }
+
+
+    public void setupCacheSize() {
+        // [START fs_setup_cache]
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+                .build();
+        database.setFirestoreSettings(settings);
+        // [END fs_setup_cache]
+    }
+
+    public void cargarDatos(View v){
+        docUsuario.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot ds, @Nullable FirebaseFirestoreException e) {
+                if(e!=null){
+                    Toast.makeText(IniciarSesion2a.this, "Error al leer datos",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (ds != null && ds.exists()) {
+                    usuario = ds.toObject(Usuario.class);
+
+                }
+            }
+
+        });
     }
 
     //DEPENDERÁ DE LOS ROLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //PARA DEPENDER DE LOS ROLES PRIMERO TIENE QUE FUNCIONAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void updateUI(FirebaseUser user){
         if (user != null){
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            database = FirebaseFirestore.getInstance();
-            DocumentReference docUsuario = database.collection("users").document(uid);
-            docUsuario.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+           /* docUsuario.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     usuario = documentSnapshot.toObject(Usuario.class);
@@ -131,10 +169,10 @@ public class IniciarSesion2a extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(IniciarSesion2a.this, "Fallo", Toast.LENGTH_LONG).show();
                 }
-            });
+            });*/
 
             Intent intent = new Intent(IniciarSesion2a.this, ModificarColegio4.class);
-            intent.putExtra("idcole", usuario.getIdColegio());
+            intent.putExtra("user", usuario);
             startActivity(intent);
             finish();
         }
