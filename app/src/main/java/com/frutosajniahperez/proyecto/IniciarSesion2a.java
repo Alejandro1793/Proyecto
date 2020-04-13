@@ -31,7 +31,7 @@ import com.google.firebase.firestore.Source;
 public class IniciarSesion2a extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseFirestore database;
+    FirebaseFirestore database;
     private final static String TAG = "Estado";
     TextView txtCorreo, txtContraseña;
     Button btnIniciarSesion;
@@ -132,6 +132,7 @@ public class IniciarSesion2a extends AppCompatActivity {
                     Toast.makeText(IniciarSesion2a.this, "Fallo", Toast.LENGTH_LONG).show();
                 }
             });
+
             Intent intent = new Intent(IniciarSesion2a.this, ModificarColegio4.class);
             intent.putExtra("idcole", usuario.getIdColegio());
             startActivity(intent);
