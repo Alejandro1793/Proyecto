@@ -84,7 +84,6 @@ public class IniciarSesion2a extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
                                     Toast.makeText(IniciarSesion2a.this, "Sesión Iniciada",
                                             Toast.LENGTH_SHORT).show();
@@ -92,11 +91,8 @@ public class IniciarSesion2a extends AppCompatActivity {
                                     uid = FirebaseAuth.getInstance().getUid();
                                     database = FirebaseFirestore.getInstance();
                                     docUsuario = database.collection("users").document(uid);
-
-                                    cargarDatos(v);
                                     updateUI(user);
                                 } else {
-                                    // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
                                     Toast.makeText(IniciarSesion2a.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
@@ -110,7 +106,7 @@ public class IniciarSesion2a extends AppCompatActivity {
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(IniciarSesion2a.this, Registro2.class));
+                startActivity(new Intent(IniciarSesion2a.this, Principal.class));
                 finish();
             }
         });
@@ -120,38 +116,7 @@ public class IniciarSesion2a extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        //FirebaseUser currentUser = mAuth.getCurrentUser();
-        //mAuth.signOut();
-        //updateUI(currentUser);
-    }
-
-
-    public void setupCacheSize() {
-        // [START fs_setup_cache]
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
-                .build();
-        database.setFirestoreSettings(settings);
-        // [END fs_setup_cache]
-    }
-
-    public void cargarDatos(View v){
-        docUsuario.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot ds, @Nullable FirebaseFirestoreException e) {
-                if(e!=null){
-                    Toast.makeText(IniciarSesion2a.this, "Error al leer datos",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (ds != null && ds.exists()) {
-                    usuario = ds.toObject(Usuario.class);
-
-                }
-            }
-
-        });
+        mAuth.signOut();
     }
 
     //DEPENDERÁ DE LOS ROLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -159,7 +124,7 @@ public class IniciarSesion2a extends AppCompatActivity {
     public void updateUI(FirebaseUser user){
         if (user != null){
 
-           /* docUsuario.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+           docUsuario.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     usuario = documentSnapshot.toObject(Usuario.class);
@@ -169,12 +134,36 @@ public class IniciarSesion2a extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(IniciarSesion2a.this, "Fallo", Toast.LENGTH_LONG).show();
                 }
-            });*/
+            });
 
-            Intent intent = new Intent(IniciarSesion2a.this, ModificarColegio4.class);
-            intent.putExtra("user", usuario);
-            startActivity(intent);
-            finish();
+
+           //Obtenemos el colegio para comprobar que terminó el proceso de registro. Si no es el caso, se envía de nuevo a registro de colegio.
+           DocumentReference docColegio = database.collection("Colegios").document(usuario.getIdColegio());
+           docColegio.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        Intent intent = null;
+                        DocumentSnapshot documento = task.getResult();
+                        if (documento.exists()) {
+                            if (usuario.getRoles().isAdmin()){
+                                intent = new Intent(IniciarSesion2a.this, ModificarColegio4.class);
+                            } else if (usuario.getRoles().isProfe()){
+                                intent = new Intent(IniciarSesion2a.this, ModificarColegio4.class);
+                            } else if (usuario.getRoles().isAlumno()){
+                                intent = new Intent(IniciarSesion2a.this, ModificarColegio4.class);
+                            }
+                            intent.putExtra("user", usuario);
+                        } else {
+                            Toast.makeText(IniciarSesion2a.this, "Aún no has registrado tu colegio", Toast.LENGTH_LONG).show();
+                            intent = new Intent(IniciarSesion2a.this, RegistroColegio.class);
+                            intent.putExtra("idcole", usuario.getIdColegio());
+                        }
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            });
         }
     }
 }

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Registro2 extends AppCompatActivity {
 
-    Button btnRegistroProfe, btnRegistroAdmin;
+    Button btnRegistroProfe, btnRegistroAdmin, btnRegistroAlumno;
     ImageView btregresar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +19,13 @@ public class Registro2 extends AppCompatActivity {
 
         btnRegistroAdmin = findViewById(R.id.btnISAdmin);
         btnRegistroProfe = findViewById(R.id.btnISProfe);
+        btnRegistroAlumno = findViewById(R.id.btnISAlumno);
         btregresar = findViewById(R.id.btnRegresar);
 
         btnRegistroProfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Registro2.this, InicioSesionExitoso.class));
+                startActivity(new Intent(Registro2.this, RegistroProfesor.class));
             }
         });
 
@@ -32,6 +33,13 @@ public class Registro2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Registro2.this, RegistroAdministrador2b.class));
+            }
+        });
+
+        btnRegistroAlumno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Registro2.this, RegistroProfesor.class));
             }
         });
 

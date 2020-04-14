@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Registro2"/>
+        <activity android:name=".RegistroProfesor"></activity>
+        <activity android:name=".Registro2" />
         <activity android:name=".Dialogo_eliminar_profe" />
         <activity android:name=".Dialogo_eliminar_aula" />
         <activity android:name=".ModificarColegio4" />

@@ -58,12 +58,11 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
         listadoProfes = new ArrayList<>();
 
         final FirebaseFirestore database = FirebaseFirestore.getInstance();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final Usuario usuario =(Usuario) getIntent().getSerializableExtra("user");
 
         if (getIntent().getSerializableExtra("colegio") == null){
-            DocumentReference docColegio = database.collection("Colegios").document(uid);
+            DocumentReference docColegio = database.collection("Colegios").document(usuario.getIdColegio());
             docColegio.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -72,7 +71,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
                         if (documento.exists()) {
                             cole = documento.toObject(Colegio.class);
                         } else {
-                            cole = new Colegio();
+                            Toast.makeText(ModificarColegio4.this, "Fallo en la obtención del colegio", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
@@ -126,9 +125,6 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
 
         txtIdColeMod.setText(usuario.getIdColegio());
 
-        //
-        //NOS FALTA CARGAR EL COLEGIO DESDE LA BASE DE DATOS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //
 
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +150,7 @@ public class ModificarColegio4 extends AppCompatActivity implements Dialogo_prof
                 if (exito) {
                     CerrarSesion.cerrarSesion(mAuth);
                     startActivity(new Intent(ModificarColegio4.this, Principal.class));
+                    finish();
                 }
             }
         });

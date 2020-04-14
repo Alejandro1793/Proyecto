@@ -29,7 +29,6 @@ import java.util.regex.Pattern;
 
 public class RegistroAdministrador2b extends AppCompatActivity {
 
-    private static final String TAG = " ";
     Button btnGenerar, btnAceptarDatos;
     TextView txtPassGenerada, txtEmail, txtRegistroCole;
     FirebaseAuth mAuth;
@@ -95,7 +94,6 @@ public class RegistroAdministrador2b extends AppCompatActivity {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         Usuario usuario = new Usuario(txtEmail.getText().toString(), user.getUid(), txtPassGenerada.getText().toString(), txtRegistroCole.getText().toString());
                                         usuario.getRoles().setAdmin(true);
-                                        //PASAR EL USUARIO A LA ACTIVITY SIGUIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                         database.collection("users").document(user.getUid()).set(usuario);
                                         updateUI(user);
                                     } else {
